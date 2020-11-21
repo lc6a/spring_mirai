@@ -14,8 +14,10 @@
 
 ### 添加依赖
 
-##### 添加本项目build/libs下的jar包
+##### 下载并添加本项目build/libs下的jar包
+
 [github仓库的jar](https://github.com/lc6a/spring_mirai/build/libs)
+
 [gitee仓库的jar](https://gitee.com/lc6a/spring_mirai/build/libs)
 
 * 在项目根路径建文件夹libs
@@ -25,13 +27,15 @@
 #### 让Spring扫描本库的一些包
 * 修改启动类上面的配置，让Spring扫描本库的一些包:
 
-```@SpringBootApplication(scanBasePackages = [
+```
+@SpringBootApplication(scanBasePackages = [
     "com.lc.spring_mirai.dao",          //jar包里面的
     "com.lc.spring_mirai.service",      //jar包里面的
     "com.lc.spring_mirai.controller",   //jar包里面的
     "com.lc.spring_mirai.bean",         //jar包里面的
     "com.xx.xxx"])        //自己项目的包
-                        //jar包里面的@MapperScan("com.lc.spring_mirai.dao", "com.xx.xxx.dao")
+              //jar包里面的dao
+@MapperScan("com.lc.spring_mirai.dao", "com.xx.xxx.dao")
 ```
 
 说明：
@@ -41,10 +45,11 @@
 
 `com.lc.spring_mirai.bean`内置一个配置内，可以在yml配置文件里面配置相关数据，或者不扫描此包，将其当做一个普通类手动传入数据也行
 
-#### 编写main函数
+### 编写main函数
 * 在主函数或者插件的加载函数初始化本库(插件的方式没有测试过）:
 
-```suspend fun main(args: Array<String>) {
+```
+suspend fun main(args: Array<String>) {
     val context = runApplication<SpringApplication>(*args)
     val config = context.getBean(Config::class.java) //若扫描了配置类，可以调用Spring获取配置实例
     val bot = defaultCreateBot(config.qqId, config.password)
@@ -74,7 +79,7 @@ private suspend fun defaultCreateBot(qqId: Long, password: String): Bot {
 
 从上面的代码可以看出，初始化本库需要提供` ConfigurableApplicationContext`、`Bot`、`Config`3个对象即可，后面无需任何与库代码直接关联的代码，除了注解。
 
-#### 使用注解
+### 使用注解
 * `Controller`注解，这个是Spring的注解，但这里被本库代为管理，表明这是一个控制器。不过本库一些注解复合了此注解，因此可以不必写，但推荐控制器类以Controller结尾命名。
 
 * `RequestMapper`注解，**注意**这个**不是Spring的RequestMapping注解**, 此注解用于标注控制器的类和方法，是路径映射必须有的注解，因此0层路由也请使用`@RequestMapper("")`，不可省略。此注解还包含describe可选参数，表明此命令的一段描述，可以是介绍命令的用法。
@@ -87,7 +92,7 @@ private suspend fun defaultCreateBot(qqId: Long, password: String): Bot {
 
 * `NotEnd`注解，只用于标注控制器的方法，表明事件被此方法处理后仍将继续进行路径映射，其他方法还有接收此事件的机会。
 
-#### 路径映射原理
+### 路径映射原理
 
 * 库初始化时对于控制器类和方法进行了预处理，根据事件类型或群的不同建立了一个个“路径树”，随着群消息不断被接收，群树的数量会动态更新。关于路径树的细节可以不必关注。
 
@@ -107,7 +112,7 @@ private suspend fun defaultCreateBot(qqId: Long, password: String): Bot {
 
 * * 路径映射是用纯字符串的方式处理，如果包含其他类型内容，可以考虑将其放到最后，或者直接在根节点处理。
 
-#### 参数注入
+### 参数注入
 
 * 路径中的占位符会根据参数名进行注入，能够注入基本类型和字符串。
 
@@ -117,11 +122,11 @@ private suspend fun defaultCreateBot(qqId: Long, password: String): Bot {
 
 * 附加数据会根据参数名进行注入，这里固定成"argc"，"args"这两个字符串作为附加数据可选的参数名，参数类型推荐为字符串。附加数据是消息在匹配路径时剩余的内容。
 
-#### 协程函数支持
+### 协程函数支持
 
 * 控制器的方法可以是普通函数也可以是协程函数，库都能够正常调用。
 
-#### 控制器方法返回值处理
+### 控制器方法返回值处理
 
 * 控制器方法可以没有返回值，也可以返回任意类型的返回值，但应该是可处理的。
 
@@ -130,13 +135,13 @@ private suspend fun defaultCreateBot(qqId: Long, password: String): Bot {
 * 返回非null的数据时，会尝试将其作为消息发送出去。因此建议返回字符串、各类Message、MessageChain。可以是可空类型，方便控制是否发送消息。
 
 
-#### 不影响其他库
+### 不影响其他库
 
 * 虽然这里借助了Spring的Controller注解来获取控制器，只有包含EventType和RequestMapper这两个必选注解的控制器才被库使用，缺少这两个注解的控制器仍然能够作为Web控制器正常使用。
 
 * 库的内置dao依赖于mybaits，但是可以不扫描该包，就不必使用mybatis。
 
-#### 目前存在的不足
+### 目前存在的不足
 
 * 设计之初没有考虑多bot，虽然在尝试改进，但仍建议只用单个bot。
 

@@ -1,0 +1,4 @@
+
+spring-mirai:
+  bean-name:
+    test: test2

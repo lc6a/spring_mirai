@@ -83,5 +83,5 @@ keys.properties
 device.json
 
 # main (include qq and password, so ignore)
-**/SpringMiraiApplication.kt
+SpringMiraiApplication.kt
 

@@ -1,6 +1,5 @@
 HELP.md
 .gradle
-build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -25,7 +24,6 @@ bin/
 /.idea/*
 .idea
 *.iws
-*.iml
 *.ipr
 out/
 !**/src/main/**/out/
@@ -83,4 +81,7 @@ keys.properties
 
 # mirai
 device.json
+
+# main (include qq and password, so ignore)
+**/SpringMiraiApplication.kt
 

@@ -28,7 +28,15 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.github.salomonbrys.kotson:kotson:2.5.0")
-    implementation("net.mamoe:mirai-core-jvm:${miraiVersion}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+    implementation("net.mamoe:mirai-core-jvm:${miraiVersion}") {
+        exclude("net.mamoe", "mirai-core-api")
+        exclude("net.mamoe", "mirai-core-utils")
+    }
+    implementation("net.mamoe:mirai-core-api-jvm:${miraiVersion}") {
+        exclude("net.mamoe", "mirai-core-utils")
+    }
+    implementation("net.mamoe:mirai-core-utils-jvm:${miraiVersion}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

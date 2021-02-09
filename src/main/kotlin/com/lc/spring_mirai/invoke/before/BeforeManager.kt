@@ -13,6 +13,6 @@ import kotlin.reflect.KParameter
 @Component("defaultBeforeManager")
 class BeforeManager {
     fun before(request: EventRequest, func: Func, args: Map<KParameter, Any?>) {
-
+        TODO()
     }
 }

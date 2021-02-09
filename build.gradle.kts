@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+
 plugins {
     id("org.springframework.boot") version "2.4.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
@@ -7,8 +8,12 @@ plugins {
     kotlin("plugin.spring") version "1.4.21"
 }
 
+val miraiVersion = "2.3.2"
+val devVersion = "1"
+
 group = "com.lc"
-version = "0.0.1"
+version = "${miraiVersion}-dev${devVersion}"
+
 java.sourceCompatibility = JavaVersion.VERSION_15
 
 repositories {
@@ -23,7 +28,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.github.salomonbrys.kotson:kotson:2.5.0")
-    implementation("net.mamoe:mirai-core-jvm:2.3.2")
+    implementation("net.mamoe:mirai-core-jvm:${miraiVersion}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

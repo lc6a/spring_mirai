@@ -20,7 +20,7 @@ object PriorityNum {
     /**
      * 主要任务
      */
-    const val PRIMARY = 100
+    const val HIGH = 100
 
     /**
      * 正常
@@ -33,7 +33,12 @@ object PriorityNum {
     const val DEFAULT = NORMAL
 
     /**
+     * 低
+     */
+    const val LOW = 10000
+
+    /**
      * 最低
      */
-    const val LOWEST = 10000
+    const val LOWEST = 100000
 }

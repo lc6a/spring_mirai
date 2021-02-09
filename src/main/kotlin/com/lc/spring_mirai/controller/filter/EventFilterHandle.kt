@@ -12,15 +12,13 @@ import kotlin.reflect.full.isSuperclassOf
  */
 @Component
 @Priority(PriorityNum.HIGHEST)
-class EventFilterHandle: FilterHandle {
+class EventFilterHandle : AnnotationFilterHandle<EventFilter>(EventFilter::class.java) {
     /**
      * 过滤器，返回是否通过要求
      * 如果是注解的过滤器，如果没有该注解，一般返回true
      */
-    override suspend fun filter(data: FilterData): Boolean {
-        val annotation = data.annotations.filterIsInstance<EventFilter>()
-        if (annotation.isEmpty()) return true
-        return annotation.all { it.value.isSuperclassOf(data.event::class) }
+    override fun filterByAnnotation(annotations: List<EventFilter>, data: FilterData): Boolean {
+        return annotations.all { it.value.isSuperclassOf(data.event::class) }
     }
 
 }

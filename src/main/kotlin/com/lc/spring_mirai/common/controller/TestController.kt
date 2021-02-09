@@ -3,6 +3,7 @@ package com.lc.spring_mirai.common.controller
 import com.lc.spring_mirai.controller.annotation.RequestMapped
 import com.lc.spring_mirai.controller.filter.EventFilter
 import net.mamoe.mirai.event.events.MessageEvent
+import net.mamoe.mirai.message.data.content
 import org.springframework.stereotype.Controller
 
 /**
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Controller
 @RequestMapped
 class TestController {
 
-    @RequestMapped("{text}")
+    @RequestMapped
     @EventFilter(MessageEvent::class)
-    fun test(text: String) = "收到：\n${text}";
+    fun test(event: MessageEvent) = "收到：\n${event.message.content}";
 }

@@ -1,4 +1,4 @@
-package com.lc.spring_mirai.common.controller
+package com.lc.spring_mirai.demo.controller
 
 import com.lc.spring_mirai.annotation.RequestMapped
 import com.lc.spring_mirai.annotation.EventFilter

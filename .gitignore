@@ -85,3 +85,4 @@ device.json
 # main (include qq and password, so ignore)
 SpringMiraiApplication.kt
 
+/src/main/kotlin/com/lc/spring_mirai/SpringMiraiApplication.kt

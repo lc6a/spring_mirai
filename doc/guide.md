@@ -21,7 +21,7 @@
 2. [自定义](#自定义)
     1. [项目bean介绍](#项目bean介绍)
     2. [自定义唯一bean](#自定义唯一bean)
-    3. [扩展排序bean](#扩展排序bean)
+    3. [添加排序bean](#添加排序bean)
     4. [自定义排序bean](#自定义排序bean)
 
 ## 基于内置默认功能开发
@@ -96,26 +96,66 @@
 ### 控制器方法返回值
 > 控制器返回值一般在after后置拦截器里面处理。
 > 
+> 后置拦截器在控制器方法执行完返回后调用，能够获取到控制器方法的返回值。
+> 
 > 以下是将方法返回值作为消息发送出去的拦截器：
 > 
-> [回消息拦截器](/src/main/kotlin/com/lc/spring_mirai/invoke/after/ReplyAfterHandle.kt)
+> [用返回值回消息的源码](/src/main/kotlin/com/lc/spring_mirai/invoke/after/ReplyAfterHandle.kt)
+>
+> 在源码中可以看到，String或者各种Message类型都是可以转换成消息的，
+> 并且是通过`util/ReplyUtil`回的消息，`ReplyUtil`回消息的方式是可以改变的，例如调整成匿名发送、发送时回复、发送时At对方等等。方便全局修改机器人行为。
+> 
+> 因此不建议在控制器方法内手动发送消息，而是以返回值的方式发送，或者给控制器注入ReplyUtil的bean。
 > 
 [回到目录](#目录)
 
 
 ## 自定义
 ### 项目bean介绍
+> 项目各功能都是基于`@Component`注解的bean,并且都不是固定指定bean。
+> 
+> 根据同一类型的bean是否只有一个生效，项目的bean分为唯一bean和排序bean。
+> 1. 唯一bean: 内置唯一bean的显著特点是bean名称都以default开头
+> 2. 排序bean: 内置排序bean的特点是不指定bean名称，但有优先级注解`@Priority`，此注解可省略
 
 [回到目录](#目录)
 
 ### 自定义唯一bean
+> 唯一bean的默认名称是default加类名
+> 1. 首先自定义bean继承旧的bean类，给自定义bean指定名称
+> 2. 用指定bean的名称替换旧bean的名称。
+> 
+> 如果使用的默认`config/BeanNameConfig`，根据该配置的定义，只需要在`application.yml`文件里面指定
+> ```yaml
+> spring-mirai:
+>     bean-name:
+>        beanKey: beanName
+> ```
+> 即可。其中beanKey是类名首字母小写，beanName是新bean的名称，这样其他地方就会载入新的bean，而不是内置默认bean。
+> 
+> 如果使用的是其他的BeanNameConfig，根据其获取名称的方式来指定自己的bean名称。
+> 
+
 
 [回到目录](#目录)
 
-### 扩展排序bean
+### 添加排序bean
+> 排序bean是某处需要某个类型的bean集合，不管是否有足够的必要去排序，由于排序只做一次，对性能影响不大，就都排一下序了。
+> 
+> 排序bean不需要bean名称，但需要优先级注解`@Priority`。
+> 
+> 因此添加排序bean时自定义类继承该类型，在类上面添加`@Component`、`@Priority`就行了。
 
 [回到目录](#目录)
 
 ### 自定义排序bean
-
+> 如果某个排序bean不符合要求，需要用新的bean替换该bean，首先要看其类型。
+> 
+> 排序bean分为单一生效排序bean和全生效排序bean。
+> 
+> * 单一生效排序bean的显著特点是类型包含`fun accept(...): Boolean`方法，当某个bean的该方法返回true，就只执行该bean。
+> 根据其特点，新bean需要替换某个bean时，只需要优先级比旧bean高，新bean的accept的范围大于等于旧bean的accept就行。
+>
+> * 全生效排序bean没有accept方法，因此在排序前就需要进行bean替换，根据默认`util/BeanSortUtil`的实现，需要在新bean上添加`@Replace`注解，注解指定被替换的bean的class
+> 
 [回到目录](#目录)

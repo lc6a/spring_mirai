@@ -13,7 +13,7 @@
 **Q群：827191054**
 
 ## [开发文档](/doc/guide.md)
-## [控制器例子](/demo)
+## [控制器例子](/src/main/kotlin/com/lc/spring_mirai/demo)
 
 
 ### 由于作者时间精力能力都有限，如果你有意向开发此库，热烈欢迎！

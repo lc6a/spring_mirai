@@ -28,6 +28,7 @@ class ReplyAfterHandle: AfterHandle {
     override fun after(data: AfterHandleData) {
         val event = data.request.event
         val ret = data.ret
+        if (ret == Unit || ret == null) return
         if (event !is MessageEvent) return
         val message: Message = when (ret) {
             is String -> PlainText(ret)

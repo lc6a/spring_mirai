@@ -16,5 +16,5 @@ class TestController {
 
     @RequestMapped
     @EventFilter(MessageEvent::class)
-    fun test(event: MessageEvent) = "收到：\n${event.message.content}";
+    fun test(event: MessageEvent) = "收到：\n${event.message.content}"
 }

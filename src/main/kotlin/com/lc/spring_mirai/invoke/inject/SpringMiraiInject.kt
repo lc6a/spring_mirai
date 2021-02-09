@@ -29,8 +29,6 @@ class SpringMiraiInject: ParamInject {
 
     /**
      * 是否接受注入该参数
-     * @param funcMappingItems 方法路径映射列表
-     * @param param 参数
      */
     override fun accept(data: ParamInjectData): Boolean {
         return try {

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller
  * @Author 19525
  * @Date 2021/2/8 22:46
  */
-@Controller
 @RequestMapped
 class TestController {
 

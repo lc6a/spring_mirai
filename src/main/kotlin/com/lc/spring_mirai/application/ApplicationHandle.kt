@@ -12,7 +12,7 @@ import javax.annotation.Resource
 class ApplicationHandle {
 
     @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('ctrlManager')}")
-    private lateinit var ctrlManager: CtrlManager
+    protected lateinit var ctrlManager: CtrlManager
 
     /**
      * 运行spring_mirai

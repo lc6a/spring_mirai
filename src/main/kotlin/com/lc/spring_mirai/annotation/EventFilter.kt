@@ -1,4 +1,4 @@
-package com.lc.spring_mirai.controller.filter
+package com.lc.spring_mirai.annotation
 
 import net.mamoe.mirai.event.Event
 import kotlin.reflect.KClass

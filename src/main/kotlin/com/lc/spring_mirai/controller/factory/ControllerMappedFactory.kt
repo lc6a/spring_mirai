@@ -1,6 +1,6 @@
 package com.lc.spring_mirai.controller.factory
 
-import com.lc.spring_mirai.controller.annotation.RequestMapped
+import com.lc.spring_mirai.annotation.RequestMapped
 import com.lc.spring_mirai.controller.function.Func
 import com.lc.spring_mirai.controller.ctrl.ControllerClass
 import com.lc.spring_mirai.controller.parameter.Param
@@ -21,7 +21,7 @@ import kotlin.reflect.jvm.javaMethod
 class ControllerMappedFactory {
 
     @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('mappedFactory')}")
-    private lateinit var mappedFactory: MappedFactory
+    protected lateinit var mappedFactory: MappedFactory
 
     /**
      * 通过控制器对象得到控制器内部实现，如果不是控制器返回null

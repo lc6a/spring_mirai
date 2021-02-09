@@ -17,11 +17,11 @@ import javax.annotation.Resource
 class EventHandle {
 
     @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('paramInjectHandle')}")
-    private lateinit var paramInjectHandle: ParamInjectHandle
+    protected lateinit var paramInjectHandle: ParamInjectHandle
     @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('beforeManager')}")
-    private lateinit var beforeManager: BeforeManager
+    protected lateinit var beforeManager: BeforeManager
     @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('afterManager')}")
-    private lateinit var afterManager: AfterManager
+    protected lateinit var afterManager: AfterManager
 
     /**
      * event发生后调用(对于每个控制器方法，将此方法添加给事件监听)

@@ -1,5 +1,6 @@
 package com.lc.spring_mirai.controller.filter
 
+import com.lc.spring_mirai.annotation.EventFilter
 import com.lc.spring_mirai.annotation.Priority
 import com.lc.spring_mirai.annotation.PriorityNum
 import org.springframework.stereotype.Component

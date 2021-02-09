@@ -20,7 +20,7 @@ import kotlin.reflect.full.primaryConstructor
 class UniversalMappedItemHandle: MappedItemHandle {
 
     @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('jsonUtil')}")
-    private lateinit var jsonUtil: JsonUtil
+    protected lateinit var jsonUtil: JsonUtil
     /**
      * 路径字符串mappedStr是否符合本handle的要求
      */
@@ -33,7 +33,7 @@ class UniversalMappedItemHandle: MappedItemHandle {
         }
     }
 
-    private lateinit var iMappedItem: IMappedItem<*>
+    protected lateinit var iMappedItem: IMappedItem<*>
 
     /**
      * 将mappedStr解析成指定IMappedItem

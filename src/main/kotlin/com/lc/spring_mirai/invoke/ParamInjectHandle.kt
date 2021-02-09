@@ -41,9 +41,9 @@ class ParamInjectHandle {
     }
 
     @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('beanSortUtil')}")
-    private lateinit var beanSortUtil: BeanSortUtil
+    protected lateinit var beanSortUtil: BeanSortUtil
 
-    private val paramInjects by lazy { beanSortUtil.sortBeans(ParamInject::class.java) }
+    protected val paramInjects by lazy { beanSortUtil.sortBeans(ParamInject::class.java) }
 
     /**
      * 获取参数注入数据

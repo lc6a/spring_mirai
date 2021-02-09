@@ -29,9 +29,9 @@ class MappedFactory {
     }
 
     @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('beanSortUtil')}")
-    private lateinit var beanSortUtil: BeanSortUtil
+    protected lateinit var beanSortUtil: BeanSortUtil
 
-    private val mappedHandles by lazy { beanSortUtil.sortBeans(MappedItemHandle::class.java) }
+    protected val mappedHandles by lazy { beanSortUtil.sortBeans(MappedItemHandle::class.java) }
 
     /**
      * @param string 该层路径

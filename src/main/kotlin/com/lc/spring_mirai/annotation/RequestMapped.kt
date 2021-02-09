@@ -1,4 +1,4 @@
-package com.lc.spring_mirai.controller.annotation
+package com.lc.spring_mirai.annotation
 
 import com.lc.spring_mirai.controller.factory.MappedFactory
 import com.lc.spring_mirai.controller.mapped.IMappedItem

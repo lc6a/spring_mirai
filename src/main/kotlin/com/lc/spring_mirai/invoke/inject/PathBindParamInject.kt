@@ -80,7 +80,7 @@ class PathBindParamInject: ParamInject {
     }
 
     @Value("${'$'}{spring-mirai.true-strings:}")
-    private lateinit var trueStrings: Array<String>
+    protected lateinit var trueStrings: Array<String>
 
     protected val defaultTrueStrings = arrayOf("on", "open", "ok", "打开", "开启", "启用", "授权", "确认")
 

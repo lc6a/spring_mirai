@@ -1,7 +1,7 @@
 package com.lc.spring_mirai.common.controller
 
-import com.lc.spring_mirai.controller.annotation.RequestMapped
-import com.lc.spring_mirai.controller.filter.EventFilter
+import com.lc.spring_mirai.annotation.RequestMapped
+import com.lc.spring_mirai.annotation.EventFilter
 import net.mamoe.mirai.event.events.MessageEvent
 import net.mamoe.mirai.message.data.content
 import org.springframework.stereotype.Controller

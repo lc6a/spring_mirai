@@ -7,7 +7,7 @@ package com.lc.spring_mirai.annotation
  * 若注明两个属性将忽略[ignoreGroupId]属性
  * 若不传参则为ignore[]，即所有群都生效
  */
-@Target(AnnotationTarget.CLASS)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 @MustBeDocumented
 annotation class GroupFilter(
         val includeGroupId: LongArray = [],

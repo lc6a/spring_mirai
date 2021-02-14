@@ -6,6 +6,8 @@ object DiceUtil {
     /**
      * 骰子
      * @param number 点数
+     * @author 19525
+     * @Date 2021/2/10 18:33
      */
     fun dice(number: Int): MarketFace {
         val dataClazz = Class.forName("net.mamoe.mirai.internal.network.protocol.data.proto.ImMsgBody${'$'}MarketFace")

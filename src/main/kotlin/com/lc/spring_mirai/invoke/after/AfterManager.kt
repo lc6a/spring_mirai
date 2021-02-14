@@ -16,11 +16,11 @@ class AfterManager {
     @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('beanSortUtil')}")
     protected lateinit var beanSortUtil: BeanSortUtil
 
-    protected val afters by lazy { beanSortUtil.sortBeans(AfterHandle::class.java) }
+    protected val afterList by lazy { beanSortUtil.sortBeans(AfterHandle::class.java) }
 
     fun after(request: EventRequest, func: Func, ret: Any?) {
         val data = AfterHandleData(request, func, ret)
-        for (after in afters) {
+        for (after in afterList) {
             after.after(data)
         }
     }

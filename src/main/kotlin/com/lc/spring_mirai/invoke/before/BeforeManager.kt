@@ -2,7 +2,9 @@ package com.lc.spring_mirai.invoke.before
 
 import com.lc.spring_mirai.controller.function.Func
 import com.lc.spring_mirai.request.EventRequest
+import com.lc.spring_mirai.util.BeanSortUtil
 import org.springframework.stereotype.Component
+import javax.annotation.Resource
 import kotlin.reflect.KParameter
 
 /**
@@ -12,7 +14,16 @@ import kotlin.reflect.KParameter
  */
 @Component("defaultBeforeManager")
 class BeforeManager {
+
+    @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('beanSortUtil')}")
+    protected lateinit var beanSortUtil: BeanSortUtil
+
+    protected val beforeList by lazy { beanSortUtil.sortBeans(BeforeHandle::class.java) }
+
     fun before(request: EventRequest, func: Func, args: Map<KParameter, Any?>) {
-        // todo
+        val data = BeforeHandleData(request, func, args)
+        for (before in beforeList) {
+            before.before(data)
+        }
     }
 }

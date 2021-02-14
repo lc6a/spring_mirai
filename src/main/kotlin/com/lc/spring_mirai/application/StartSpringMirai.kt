@@ -21,7 +21,6 @@ class StartSpringMirai: ApplicationListener<ApplicationStartedEvent> {
      * @param event the event to respond to
      */
     override fun onApplicationEvent(event: ApplicationStartedEvent) {
-        SpringApplicationContextUtil.context = event.applicationContext
         applicationHandle.runApplication()
     }
 }

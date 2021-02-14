@@ -1,4 +1,7 @@
 
 spring-mirai:
+  # 这样自定义配置类（一般不需要改）
+  #name-config: defaultBeanNameConfig
   bean-name:
-    test: test2
+    # 这样自定义的唯一bean名称
+    # key: name

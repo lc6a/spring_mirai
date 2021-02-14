@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller
  * @Date 2021/2/8 22:46
  */
 @RequestMapped
+@Controller("test123")
 class TestController {
 
     @RequestMapped

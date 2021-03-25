@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.*
 
 
 @Mapper
-interface IPermissionDao {
+interface PermissionDao {
     @Insert("insert ignore into user_permission(qqId,permission) values(#{qqId}, #{permission})")
     fun insert(@Param("qqId") qqId: Long, @Param("permission") permission: String) : Int
     @Select("select count(qqId) from user_permission where qqId=#{qqId} and permission=#{permission}")

@@ -1,6 +1,6 @@
 package com.lc.spring_mirai.demo.service
 
-interface IPermissionService {
+interface PermissionService {
     companion object{
         /**
          * root权限，最高权限

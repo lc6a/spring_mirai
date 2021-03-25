@@ -20,14 +20,7 @@ class PluginTest {
     @Test
     fun test() {
         MiraiConsoleTerminalLoader.startAsDaemon()
-        runBlocking {
-            val bot = BotFactory.newBot(qq, password) {
-                fileBasedDeviceInfo()
-                protocol = BotConfiguration.MiraiProtocol.ANDROID_PAD
-            }.alsoLogin()
             SpringMiraiDemoPlugin.load()
             SpringMiraiDemoPlugin.enable()
-            bot.join()
-        }
     }
 }

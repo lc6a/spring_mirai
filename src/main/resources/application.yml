@@ -5,3 +5,11 @@ spring-mirai:
   bean-name:
     # 这样自定义的唯一bean名称
     # key: name
+
+spring:
+  datasource:
+    name: bot
+    url: jdbc:mysql://49.235.33.223:3306/mirai
+    username: mirai
+    password: SpringMiraiBot66..
+    driver-class-name: com.mysql.cj.jdbc.Driver

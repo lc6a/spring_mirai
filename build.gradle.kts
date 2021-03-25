@@ -43,6 +43,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.github.salomonbrys.kotson:kotson:2.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.3")
+    implementation("mysql:mysql-connector-java:8.0.22")
     implementation("net.mamoe:mirai-console-terminal:${Version.mirai}") // 自行替换版本
     implementation("net.mamoe:mirai-core-jvm:${Version.mirai}") {
         exclude("net.mamoe", "mirai-core-api")

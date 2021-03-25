@@ -8,6 +8,7 @@ import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.utils.BotConfiguration
 import net.mamoe.mirai.utils.debug
+import net.mamoe.mirai.utils.warning
 import org.springframework.boot.runApplication
 
 object SpringMiraiDemoPlugin: KotlinPlugin(
@@ -19,6 +20,7 @@ object SpringMiraiDemoPlugin: KotlinPlugin(
 ) {
     override fun onEnable() {
         logger.debug { "Start Spring Mirai" }
+        logger.warning{ "Class:${Class.forName("com.lc.spring_mirai.demo.controller.TestController")}"}
         runApplication<SpringMiraiApplication>()
     }
 }

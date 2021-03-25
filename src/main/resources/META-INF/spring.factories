@@ -1,5 +1,8 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.lc.spring_mirai.config.SpringScanPackage
+
 
 org.springframework.context.ApplicationListener=\
   com.lc.spring_mirai.util.SpringContextInit
+
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.lc.spring_mirai.config.SpringScanPackage

@@ -14,7 +14,8 @@ import org.springframework.stereotype.Component
 @Priority(PriorityNum.HIGH)
 class GroupFilterHandle: AnnotationFilterHandle<GroupFilter>(GroupFilter::class.java) {
     override fun filterByAnnotation(annotations: List<GroupFilter>, data: FilterData): Boolean {
-        val group = (data.event as GroupEvent).group.id
+        if (data.event !is GroupEvent) return true
+        val group = data.event.group.id
         return annotations.all {
             val include = it.includeGroupId
             if (include.isNotEmpty()) {

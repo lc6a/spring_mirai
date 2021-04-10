@@ -11,7 +11,6 @@ import kotlin.reflect.KClass
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
-@Controller
 annotation class RequestMapped(
     /**
      * 定义的路径字符串

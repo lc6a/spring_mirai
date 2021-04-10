@@ -4,7 +4,7 @@ object Version{
     /**
      * mirai版本
      */
-    const val mirai = "2.3.2"
+    const val mirai = "2.5.2"
 
     /**
      * spring_mirai开发版本
@@ -15,7 +15,7 @@ object Version{
 plugins {
     id("org.springframework.boot") version "2.4.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    id("net.mamoe.mirai-console") version "2.3.2" //尝试从Version.mirai获取失败了
+    id("net.mamoe.mirai-console") version "2.5.2" //尝试从Version.mirai获取失败了
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
 }

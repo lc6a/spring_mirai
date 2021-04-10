@@ -1,12 +1,10 @@
 package com.lc.spring_mirai.invoke
 
 import com.lc.spring_mirai.controller.function.Func
-import com.lc.spring_mirai.controller.parameter.Param
-import com.lc.spring_mirai.invoke.exception.ParamInjectException
+import com.lc.spring_mirai.invoke.inject.exception.ParamInjectException
 import com.lc.spring_mirai.invoke.inject.ParamInject
 import com.lc.spring_mirai.invoke.inject.ParamInjectData
 import com.lc.spring_mirai.request.EventRequest
-import com.lc.spring_mirai.request.mapping.IMappingItem
 import com.lc.spring_mirai.util.BeanSortUtil
 import org.springframework.stereotype.Component
 import javax.annotation.Resource

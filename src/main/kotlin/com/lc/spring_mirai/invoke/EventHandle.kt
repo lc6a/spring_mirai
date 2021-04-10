@@ -2,7 +2,9 @@ package com.lc.spring_mirai.invoke
 
 import com.lc.spring_mirai.controller.function.Func
 import com.lc.spring_mirai.invoke.after.AfterManager
+import com.lc.spring_mirai.invoke.around.AroundManager
 import com.lc.spring_mirai.invoke.before.BeforeManager
+import com.lc.spring_mirai.invoke.exception.ExceptionManager
 import com.lc.spring_mirai.request.EventRequest
 import com.lc.spring_mirai.request.Request
 import net.mamoe.mirai.event.Event
@@ -22,6 +24,10 @@ class EventHandle {
     protected lateinit var beforeManager: BeforeManager
     @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('afterManager')}")
     protected lateinit var afterManager: AfterManager
+    @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('aroundManager')}")
+    protected lateinit var aroundManager: AroundManager
+    @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('exceptionManager')}")
+    protected lateinit var exceptionManager: ExceptionManager
 
     /**
      * event发生后调用(对于每个控制器方法，将此方法添加给事件监听)
@@ -31,7 +37,13 @@ class EventHandle {
             return
         val args = paramInjectHandle.injectData(request, func)
         beforeManager.before(request, func, args)
-        val ret = func.invokeNotSuspend(args)
-        afterManager.after(request, func, ret)
+        aroundManager.before(request, func, args)
+        try {
+            val ret = func.invokeNotSuspend(args)
+            aroundManager.after(request, func, ret)
+            afterManager.after(request, func, ret)
+        } catch (e: Exception) {
+            exceptionManager.exception(request, func, e)
+        }
     }
 }

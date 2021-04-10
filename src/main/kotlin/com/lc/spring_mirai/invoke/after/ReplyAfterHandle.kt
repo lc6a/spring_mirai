@@ -6,10 +6,7 @@ import com.lc.spring_mirai.util.BeanSortUtil
 import com.lc.spring_mirai.util.ReplyUtil
 import kotlinx.coroutines.runBlocking
 import net.mamoe.mirai.event.events.MessageEvent
-import net.mamoe.mirai.message.data.Message
-import net.mamoe.mirai.message.data.MessageChain
-import net.mamoe.mirai.message.data.PlainText
-import net.mamoe.mirai.message.data.buildMessageChain
+import net.mamoe.mirai.message.data.*
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
 
@@ -34,6 +31,9 @@ class ReplyAfterHandle: AfterHandle {
             is String -> PlainText(ret)
             is Message -> ret
             else -> ret as Message
+        }
+        if (message.isContentEmpty()) {
+            return
         }
         runBlocking {
             replyUtil.reply(event, message)

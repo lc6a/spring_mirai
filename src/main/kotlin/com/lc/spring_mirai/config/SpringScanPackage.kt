@@ -1,6 +1,5 @@
 package com.lc.spring_mirai.config
 
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.stereotype.Component
 

@@ -9,7 +9,7 @@ object Version{
     /**
      * spring_mirai开发版本
      */
-    const val dev = "2"
+    const val dev = "1"
 }
 
 plugins {
@@ -25,6 +25,7 @@ group = "com.lc"
 version = "${Version.mirai}-dev${Version.dev}"
 
 java.sourceCompatibility = JavaVersion.VERSION_15
+java.targetCompatibility = JavaVersion.VERSION_15
 
 repositories {
     mavenLocal()
@@ -39,6 +40,7 @@ mirai {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework:spring-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.github.salomonbrys.kotson:kotson:2.5.0")
@@ -56,6 +58,7 @@ dependencies {
     implementation("net.mamoe:mirai-core-utils-jvm:${Version.mirai}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
+
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {

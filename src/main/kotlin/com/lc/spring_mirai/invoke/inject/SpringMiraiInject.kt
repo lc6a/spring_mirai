@@ -87,7 +87,17 @@ class SpringMiraiInject: ParamInject {
                 return data.event.user
             }
         }
-        // 3. 其他
+        // 3. argc、args、argv等命名的String类型，表示映射后剩余的内容
+        val argcNameList = listOf("argc", "args", "argv")
+        if (clazz.isSubclassOf(String::class) && argcNameList.contains(data.param.kParameter.name)) {
+            var n = data.funcMappingItems.size
+            var content = (data.event as MessageEvent).message.content
+            for (i in 0..n) {
+                content = content.substringAfter(' ')
+            }
+            return content
+        }
+        // 4. 其他
         TODO()
     }
 }

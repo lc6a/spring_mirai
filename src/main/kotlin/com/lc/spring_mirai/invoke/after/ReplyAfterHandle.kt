@@ -2,7 +2,6 @@ package com.lc.spring_mirai.invoke.after
 
 import com.lc.spring_mirai.annotation.Priority
 import com.lc.spring_mirai.annotation.PriorityNum
-import com.lc.spring_mirai.util.BeanSortUtil
 import com.lc.spring_mirai.util.ReplyUtil
 import kotlinx.coroutines.runBlocking
 import net.mamoe.mirai.event.events.MessageEvent

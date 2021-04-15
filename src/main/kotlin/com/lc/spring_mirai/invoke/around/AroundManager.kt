@@ -2,10 +2,9 @@ package com.lc.spring_mirai.invoke.around
 
 import com.lc.spring_mirai.controller.function.Func
 import com.lc.spring_mirai.invoke.after.AfterHandleData
-import com.lc.spring_mirai.invoke.before.BeforeHandle
 import com.lc.spring_mirai.invoke.before.BeforeHandleData
 import com.lc.spring_mirai.request.EventRequest
-import com.lc.spring_mirai.util.BeanSortUtil
+import com.lc.spring_mirai.util.beanSort.BeanSortUtil
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
 import kotlin.reflect.KParameter

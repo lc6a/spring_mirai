@@ -1,9 +1,8 @@
 package com.lc.spring_mirai.config
 
-import com.lc.spring_mirai.util.BeanSortUtil
+import com.lc.spring_mirai.util.beanSort.BeanSortUtil
 import com.lc.spring_mirai.util.SpringApplicationContextUtil
 import kotlinx.atomicfu.locks.synchronized
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.stereotype.Component
 

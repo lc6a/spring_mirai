@@ -11,12 +11,17 @@ open class ControllerClass(
     /**
      * 控制器对象
      */
-    open val ctrlObj: Any
+    open val ctrlObj: Any,
+    /**
+     * bean名称
+     */
+    open val beanName: String
 ) : IMappedAble {
     /**
      * 控制器类
      */
     open val clazz = ctrlObj::class
+
     override lateinit var mappedItems: List<IMappedItem<*>>
     open lateinit var functions: List<Func>
 

@@ -3,6 +3,8 @@ package com.lc.spring_mirai
 import kotlinx.coroutines.runBlocking
 import net.mamoe.mirai.BotFactory
 import net.mamoe.mirai.alsoLogin
+import net.mamoe.mirai.console.data.AbstractPluginData
+import net.mamoe.mirai.console.data.PluginData
 import net.mamoe.mirai.console.extension.PluginComponentStorage
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
@@ -23,4 +25,13 @@ object SpringMiraiDemoPlugin: KotlinPlugin(
         logger.warning{ "Class:${Class.forName("com.lc.spring_mirai.demo.controller.TestController")}"}
         runApplication<SpringMiraiApplication>()
     }
+}
+
+
+object DemoPluginData: AbstractPluginData() {
+    /**
+     * 这个 [PluginData] 保存时使用的名称.
+     */
+    override val saveName: String
+        get() = TODO("Not yet implemented")
 }

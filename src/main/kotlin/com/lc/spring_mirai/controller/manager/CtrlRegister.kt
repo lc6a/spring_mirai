@@ -7,7 +7,7 @@ import com.lc.spring_mirai.controller.function.Func
 import com.lc.spring_mirai.invoke.EventHandle
 import com.lc.spring_mirai.request.Request
 import com.lc.spring_mirai.request.RequestFactory
-import com.lc.spring_mirai.util.BeanSortUtil
+import com.lc.spring_mirai.util.beanSort.BeanSortUtil
 import net.mamoe.mirai.event.Event
 import net.mamoe.mirai.event.EventChannel
 import net.mamoe.mirai.event.GlobalEventChannel

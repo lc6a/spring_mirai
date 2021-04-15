@@ -5,7 +5,7 @@ import com.lc.spring_mirai.invoke.inject.exception.ParamInjectException
 import com.lc.spring_mirai.invoke.inject.ParamInject
 import com.lc.spring_mirai.invoke.inject.ParamInjectData
 import com.lc.spring_mirai.request.EventRequest
-import com.lc.spring_mirai.util.BeanSortUtil
+import com.lc.spring_mirai.util.beanSort.BeanSortUtil
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
 import kotlin.reflect.KParameter

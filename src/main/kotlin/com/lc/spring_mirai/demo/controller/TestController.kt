@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller
  * @Date 2021/2/8 22:46
  */
 @RequestMapped
-//@Controller("test123")
+//@Controller("test123")    // 取消注释使该控制器生效
 @PermissionFilter("收到")
 class TestController {
 

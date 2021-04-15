@@ -27,10 +27,10 @@ class ControllerMappedFactory {
      * 通过控制器对象得到控制器内部实现，如果不是控制器返回null
      * @see ControllerClass
      */
-    fun createControllerClass(ctrlObj: Any): ControllerClass? {
+    fun createControllerClass(ctrlObj: Any, ctrlBeanName: String): ControllerClass? {
         if (!isController(ctrlObj)) return null
         // controller
-        val controllerClass = ControllerClass(ctrlObj)
+        val controllerClass = ControllerClass(ctrlObj, ctrlBeanName)
         val ctrlMapped = AnnotationUtils.findAnnotation(ctrlObj::class.java, RequestMapped::class.java)!!
         controllerClass.mappedItems = mappedFactory.createMapped(ctrlMapped.value, controllerClass, null)
         //function

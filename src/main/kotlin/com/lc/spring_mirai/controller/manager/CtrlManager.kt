@@ -33,23 +33,23 @@ class CtrlManager {
     fun reloadAllCtrl() {
         val objs = getAllCtrlObj()
         for (obj in objs) {
-            reloadCtrl(obj)
+            reloadCtrl(obj.value, obj.key)
         }
     }
 
     /**
      * 获取所有控制器对象
      */
-    protected fun getAllCtrlObj(): List<Any> {
-        return SpringApplicationContextUtil.context.getBeansWithAnnotation(Controller::class.java).values.toList()
+    protected fun getAllCtrlObj(): MutableMap<String, Any> {
+        return SpringApplicationContextUtil.context.getBeansWithAnnotation(Controller::class.java)
     }
 
-    protected fun reloadCtrl(ctrlObj: Any) {
+    protected fun reloadCtrl(ctrlObj: Any, ctrlBeanName: String) {
         val old = ctrlList.filter { it.clazz == ctrlObj::class }
         if (old.isNotEmpty()) {
             old.forEach { removeCtrl(it) }
         }
-        val ctrl = controllerMappedFactory.createControllerClass(ctrlObj)
+        val ctrl = controllerMappedFactory.createControllerClass(ctrlObj, ctrlBeanName)
         if (ctrl != null)
             addCtrl(ctrl)
     }

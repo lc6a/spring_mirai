@@ -3,7 +3,7 @@ package com.lc.spring_mirai.controller.factory
 import com.lc.spring_mirai.controller.function.Func
 import com.lc.spring_mirai.controller.ctrl.ControllerClass
 import com.lc.spring_mirai.controller.mapped.*
-import com.lc.spring_mirai.util.BeanSortUtil
+import com.lc.spring_mirai.util.beanSort.BeanSortUtil
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
 

@@ -17,7 +17,7 @@ interface AnswerDao {
     @Select("select answer from answer where question=#{question} and vague=0")
     fun findAnswer(question: String): String?
 
-    @Select("select question,answer from answer where question like '%${'$'}{question}%' and vague=1")
+    @Select("select question,answer from answer where instr(#{question},question) and vague=1")
     fun findVagueAnswer(question: String): List<Answer>
 
     @Delete("delete from answer where question=#{question}")

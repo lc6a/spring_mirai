@@ -8,6 +8,10 @@ import com.lc.spring_mirai.web.entity.Answer
 import com.lc.spring_mirai.web.service.AnswerService
 import com.lc.spring_mirai.web.service.DataService
 import net.mamoe.mirai.event.events.GroupMessageEvent
+import net.mamoe.mirai.message.data.MessageChain
+import net.mamoe.mirai.message.data.MessageKey
+import net.mamoe.mirai.message.data.MessageSource
+import net.mamoe.mirai.message.data.PlainText
 import javax.annotation.Resource
 
 
@@ -25,21 +29,26 @@ class AskAnswerBotController: BaseBotController() {
     @Resource
     private lateinit var answerService: AnswerService
 
-    @RequestMapped("{question}")
-    fun getAnswer(question: String, event: GroupMessageEvent): String?{
-        val ans = answerService.getAnswer(question)
-        if (ans != null && ans != "")
-            return ans
-        val vagueAns = answerService.getVagueAnswer(question)
-        if (vagueAns.isEmpty())
-            return null
-        if (vagueAns.size == 1) {
-            return vagueAns[0].answer
+    @RequestMapped
+    fun getAnswer(messageChain: MessageChain): String? {
+        val questions = messageChain.filterIsInstance<PlainText>()
+        questions.forEach {
+            val question = it.content
+            val ans = answerService.getAnswer(question)
+            if (ans != null && ans != "")
+                return ans
+            val vagueAns = answerService.getVagueAnswer(question)
+            if (vagueAns.isEmpty())
+                return@forEach
+            if (vagueAns.size == 1) {
+                return vagueAns[0].answer
+            }
+            val sb = StringBuilder()
+            for (a in vagueAns)
+                sb.append("问题[${a.question}]的答案是[${a.answer}]\n")
+            return sb.toString()
         }
-        val sb = StringBuilder()
-        for (a in vagueAns)
-            sb.append("问题[${a.question}]的答案是[${a.answer}]\n")
-        return sb.toString()
+        return null
     }
 
     @RequestMapped("问/{question}/答")

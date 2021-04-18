@@ -24,6 +24,7 @@ class AskAnswerBotController: BaseBotController() {
 
     companion object {
         private const val setAnswer = "设置问答"
+        private const val seeAnswers = "查看问答"
     }
 
     @Resource
@@ -49,6 +50,18 @@ class AskAnswerBotController: BaseBotController() {
             return sb.toString()
         }
         return null
+    }
+
+    @RequestMapped("所有问答")
+    fun all(): String {
+        val sb = StringBuilder()
+        val ans = answerService.getAnswers()
+        val vag = answerService.getVagueAnswers()
+        sb.append("精确问答：\n")
+        ans.forEach { sb.append(it.question).append(" => ").append(it.answer).append('\n') }
+        sb.append("模糊问答：\n")
+        vag.forEach { sb.append(it.question).append(" => ").append(it.answer).append('\n') }
+        return sb.toString()
     }
 
     @RequestMapped("问/{question}/答")

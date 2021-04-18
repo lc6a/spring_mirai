@@ -6,10 +6,11 @@ import com.lc.spring_mirai.annotation.GroupFilter
 import com.lc.spring_mirai.annotation.RequestMapped
 import com.lc.spring_mirai.web.service.TestService
 import net.mamoe.mirai.event.events.GroupMessageEvent
+import net.mamoe.mirai.event.events.MessageEvent
 import javax.annotation.Resource
 
 @BotController("test1221")
-@EventFilter(GroupMessageEvent::class)
+@EventFilter(MessageEvent::class)
 @RequestMapped
 class TestBotController: BaseBotController() {
 

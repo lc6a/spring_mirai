@@ -44,15 +44,15 @@ class PathBindParamInject: ParamInject {
     protected fun<T : Any> castType(value: Any?, clazz: KClass<T>):T? {
         // 如果类型一致就直接返回
         if (value == null || clazz.isSuperclassOf(value::class)) return value as T?
-        // 尝试强制转换
-        try {
-            return value as T?
-        } catch (e: Exception) {}
+        // 尝试强制转换   //强制转换 字符串 到 Long 仍然是字符串，并且不抛异常
+//        try {
+//            return value as T?
+//        } catch (e: Exception) {}
         // 需要手动转换
         return when (value) {
             // 字符串类型
             is String -> {
-                when (clazz) {
+                val tmp: Any? = when (clazz) {
                     Int::class -> value.toInt()
                     Long::class -> value.toLong()
                     Byte::class -> value.toByte()
@@ -61,7 +61,10 @@ class PathBindParamInject: ParamInject {
                     Double::class -> value.toDouble()
                     Boolean::class -> toBoolean(value)
                     At::class -> At(value.toLong())
+                    else -> null
                 }
+                if (tmp != null)
+                    return tmp as T?
                 TODO()
             }
             is FlashImage, is Image -> {

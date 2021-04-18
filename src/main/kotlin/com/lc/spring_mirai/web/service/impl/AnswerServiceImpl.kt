@@ -13,6 +13,14 @@ class AnswerServiceImpl: AnswerService {
     @Resource
     private lateinit var answerDao: AnswerDao
 
+    override fun getAnswers(): List<Answer> {
+        return answerDao.getAllAnswers()
+    }
+
+    override fun getVagueAnswers(): List<Answer> {
+        return answerDao.getAllVagueAnswer()
+    }
+
     override fun getAnswer(question: String): String? {
         return answerDao.findAnswer(question)
     }

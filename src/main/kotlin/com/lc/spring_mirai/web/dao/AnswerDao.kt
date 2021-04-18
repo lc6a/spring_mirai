@@ -22,4 +22,10 @@ interface AnswerDao {
 
     @Delete("delete from answer where question=#{question}")
     fun deleteAnswer(question: String)
+
+    @Select("select question,answer from answer where vague=0")
+    fun getAllAnswers(): List<Answer>
+
+    @Select("select question,answer from answer where vague=1")
+    fun getAllVagueAnswer(): List<Answer>
 }

@@ -9,6 +9,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@RequestMapped
 @Controller
 public @interface BotController {
 

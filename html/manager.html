@@ -22,9 +22,9 @@
       <!-- 头部区域（可配合layui 已有的水平导航） -->
       <!-- 导航栏左边 -->
       <ul class="layui-nav layui-layout-left">
-        <li class="layui-nav-item"><a v-on:click="bodyUrl='/status.html'">首页</a></li>
-        <li class="layui-nav-item"><a v-on:click="bodyUrl='http://www.baidu.com'">跳转1</a></li>
-        <li class="layui-nav-item"><a v-on:click="bodyUrl='http://49.235.33.223'">跳转2</a></li>
+        <li class="layui-nav-item"><a v-on:click="bodyUrl='/status1.html'">首页</a></li>
+        <li class="layui-nav-item"><a v-on:click="bodyUrl='/status2.html'">首页1</a></li>
+        <li class="layui-nav-item"><a v-on:click="bodyUrl='http://49.235.33.223'">跳转</a></li>
         <li class="layui-nav-item">
           <a href="javascript:;">nav groups</a>
           <dl class="layui-nav-child">
@@ -37,10 +37,11 @@
       <!-- 导航栏右边 -->
       <ul class="layui-nav layui-layout-right">
         <li class="layui-nav-item" lay-unselect="">
-					<a title="消息" id="messageTips">
+					<a href="javascirpt:;" title="消息">
 						<i class="layui-icon layui-icon-notice"></i>
-						<i><span style="color: red;"></span></i>
-						<!--小红点-->
+            <!--小红点-->
+            <span class="layui-badge-dot"></span>
+            <span class="layui-badge">99+</span>
 					</a>
 				</li>
         <li class="layui-nav-item">
@@ -66,7 +67,7 @@
             <a href="javascript:;">概览</a>
           </li>
           <li class="layui-nav-item layui-nav-itemd">
-            <a href="javascript:;">功能</a>
+            <a href="javascript:;" v-on:click="bodyUrl='/status.html'">功能</a>
           </li>
           <li class="layui-nav-item layui-nav-itemd">
             <a href="javascript:;">命令</a>

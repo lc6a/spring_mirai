@@ -19,6 +19,10 @@ interface CtrlService {
 
     fun setExclude(exclude: CtrlExclude)
 
+    fun removeInclude(include: CtrlInclude)
+
+    fun removeExclude(exclude: CtrlExclude)
+
     fun commonFilter(id: Long, ctrlName: String, idTypes: IdTypes): Boolean
 
     fun botFilter(botId: Long, ctrlName: String) = commonFilter(botId, ctrlName, IdTypes.bot)

@@ -47,12 +47,46 @@ class ManagerController {
     }
 
     @RequestMapping("setInclude")
-    fun setInclude(@RequestParam include: CtrlInclude) {
+    fun setInclude( include: CtrlInclude) {
         ctrlService.setInclude(include)
     }
 
+    @RequestMapping("setIncludeByName")
+    fun setInclude(@RequestParam id: Long, @RequestParam ctrlName: String, @RequestParam idTypeId: Int) {
+        val ctrlId = ctrlService.getCtrlStatus(ctrlName).ctrl.id!!
+        ctrlService.setInclude(CtrlInclude(ctrlId, idTypeId, id))
+    }
+
     @RequestMapping("setExclude")
-    fun setExclude(@RequestParam exclude: CtrlExclude) {
+    fun setExclude( exclude: CtrlExclude) {
         ctrlService.setExclude(exclude)
+    }
+
+    @RequestMapping("setExcludeByName")
+    fun setExclude(@RequestParam id: Long, @RequestParam ctrlName: String, @RequestParam idTypeId: Int) {
+        val ctrlId = ctrlService.getCtrlStatus(ctrlName).ctrl.id!!
+        ctrlService.setExclude(CtrlExclude(ctrlId, idTypeId, id))
+    }
+
+    @RequestMapping("removeInclude")
+    fun removeInclude(include: CtrlInclude) {
+        ctrlService.removeInclude(include)
+    }
+
+    @RequestMapping("removeIncludeByName")
+    fun removeInclude(@RequestParam id: Long, @RequestParam ctrlName: String, @RequestParam idTypeId: Int) {
+        val ctrlId = ctrlService.getCtrlStatus(ctrlName).ctrl.id!!
+        ctrlService.removeInclude(CtrlInclude(ctrlId, idTypeId, id))
+    }
+
+    @RequestMapping("removeExclude")
+    fun removeExclude(exclude: CtrlExclude) {
+        ctrlService.removeExclude(exclude)
+    }
+
+    @RequestMapping("removeExcludeByName")
+    fun removeExclude(@RequestParam id: Long, @RequestParam ctrlName: String, @RequestParam idTypeId: Int) {
+        val ctrlId = ctrlService.getCtrlStatus(ctrlName).ctrl.id!!
+        ctrlService.removeExclude(CtrlExclude(ctrlId, idTypeId, id))
     }
 }

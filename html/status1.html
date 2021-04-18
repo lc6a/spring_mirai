@@ -15,7 +15,7 @@
 
 <body>
     <!-- 主体表格 -->
-    <table id="table-main"></table>
+    <table id="table-main" lay-filter="test"></table>
 
     <script>
         layui.use('table', function () {
@@ -23,19 +23,66 @@
             //第一个实例
             table.render({
                 elem: '#table-main'
-                , height: 312
                 , url: getUrl('/manager/main') //数据接口
                 , page: true //开启分页
                 , cols: [[ //表头
                     { field: 'ctrlName', title: '控制器', sort: true }
                     , { field: 'showName', title: '名称', sort: true }
-                    , { field: 'enable', title: '状态', sort: true, templet: '<div><input type="checkbox" {{#if(true){return"checked"}}} ></div>' }
+                    , {
+                        field: 'enable', title: '状态', sort: true, templet: function (d) {
+                            let checked = ''
+                            if (d.enable)
+                                checked = 'checked'
+                            return '<div><input type="checkbox" id="enable-' + d.ctrlName + '" name="switch" onclick="alert(123)" lay-text="开启|关闭" lay-skin="switch" ' + checked + '/></div>'
+                            //return '<el-switch value="' + d.enable + '"></el-switch>'
+                        }, event: 'enable'
+                    }
                     , { field: 'includes', title: '白名单' }
                     , { field: 'excludes', title: '黑名单' }
                     , { field: 'manager', title: '管理', templet: '<div><button>管理</button></div>' }
                 ]]
             });
+            table.on('switch(test)', function (obj) {
+                console.log(obj.checked); //当前是否选中状态
+                console.log(obj.data); //选中行的相关数据
+                console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+            });
+            //工具条事件
+            table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+
+                if (layEvent === 'enable') {
+                    setEnable(data.ctrlName, $("#enable-" + data.ctrlName).attr("checked"))
+                } else if (layEvent === 'detail') { //查看
+                    //do somehing
+                } else if (layEvent === 'del') { //删除
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                        layer.close(index);
+                        //向服务端发送删除指令
+                    });
+                } else if (layEvent === 'edit') { //编辑
+                    //do something
+
+                    //同步更新缓存对应的值
+                    obj.update({
+                        username: '123'
+                        , title: 'xxx'
+                    });
+                } else if (layEvent === 'LAYTABLE_TIPS') {
+                    layer.alert('Hi，头部工具栏扩展的右侧图标。');
+                }
+            });
         });
+
+        function setEnable(ctrlName, enable) {
+            console.log(ctrlName);
+            console.log(enable);
+        }
+
+        
     </script>
 </body>
 

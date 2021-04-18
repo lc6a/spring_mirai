@@ -9,11 +9,18 @@ data class LayuiCtrlStatus(
 ) {
     companion object {
         fun fromCtrlStatus(status: CtrlStatus): LayuiCtrlStatus {
-            val includes1 = listOf<MutableList<Long>>()
+            val idTypesSize = IdTypes.values().size
+            val includes1 = mutableListOf<MutableList<Long>>()
+            for (i in 0..idTypesSize) {
+                includes1.add(mutableListOf())
+            }
             for (ctrlInclude in status.ctrlIncludes) {
                 includes1[ctrlInclude.idTypeId].add(ctrlInclude.id)
             }
-            val excludes1 = listOf<MutableList<Long>>()
+            val excludes1 = mutableListOf<MutableList<Long>>()
+            for (i in 0..idTypesSize) {
+                excludes1.add(mutableListOf())
+            }
             status.ctrlExcludes.forEach {
                 excludes1[it.idTypeId].add(it.id)
             }

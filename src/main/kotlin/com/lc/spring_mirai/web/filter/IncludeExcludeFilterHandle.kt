@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component
 import javax.annotation.Resource
 
 @Component
-@Priority(PriorityNum.HIGH)
+@Priority(PriorityNum.DEFAULT)
 @Replace(GroupFilterHandle::class)      // 本过滤器基于数据库，取代了基于注解的过滤器
 class IncludeExcludeFilterHandle: FilterHandle {
 
@@ -29,17 +29,16 @@ class IncludeExcludeFilterHandle: FilterHandle {
     override suspend fun filter(data: FilterData): Boolean {
         val localCt = data.ctrl ?: return true
         if (localCt.ctrlObj !is BaseBotController) return true
-        var ok = true
         val event = data.event
         if (event is BotEvent) {
-            ok = ctrlService.botFilter(event.bot.id, localCt.beanName)
+            if (!ctrlService.botFilter(event.bot.id, localCt.beanName)) return false
         }
         if (event is GroupEvent) {
-            ok = ctrlService.groupFilter(event.group.id, localCt.beanName)
+            if (!ctrlService.groupFilter(event.group.id, localCt.beanName)) return false
         }
         if (event is FriendEvent) {
-            ok = ctrlService.friendFilter(event.friend.id, localCt.beanName)
+            if (!ctrlService.friendFilter(event.friend.id, localCt.beanName)) return false
         }
-        return ok
+        return true
     }
 }

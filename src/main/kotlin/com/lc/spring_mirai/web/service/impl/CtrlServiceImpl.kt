@@ -76,6 +76,14 @@ class CtrlServiceImpl: CtrlService {
         }
     }
 
+    override fun removeInclude(include: CtrlInclude) {
+        ctrlDao.deleteCtrlInclude(include)
+    }
+
+    override fun removeExclude(exclude: CtrlExclude) {
+        ctrlDao.deleteCtrlExclude(exclude)
+    }
+
     override fun commonFilter(id: Long, ctrlName: String, idTypes: IdTypes): Boolean {
         val ctrl = ctrlDao.findCtrlByName(ctrlName) ?: return false
         val ctrlId = ctrl.id!!

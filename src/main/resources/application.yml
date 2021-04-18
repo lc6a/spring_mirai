@@ -11,6 +11,21 @@ spring:
     username: mirai
     password: SpringMiraiBot66..
     driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      initial-size: 3
+      min-idle: 1
+      max-idle: 5
+      log-abandoned: true
+      remove-abandoned: true
+      remove-abandoned-timeout: 300
+      max-wait: 1000
+      test-while-idle: true
+      validation-query: select 1 from ctrl
+      test-on-borrow: true
+      min-evictable-idle-time-millis: 600000
+      time-between-eviction-runs-millis: 30000
+
+
 
 server:
   port: 13000

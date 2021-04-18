@@ -93,7 +93,7 @@ class SpringMiraiInject: ParamInject {
             var n = data.funcMappingItems.size
             var content = (data.event as MessageEvent).message.content
             for (i in 0..n) {
-                content = content.substringAfter(' ')
+                content = content.substringAfter(' ', "")
             }
             return content
         }

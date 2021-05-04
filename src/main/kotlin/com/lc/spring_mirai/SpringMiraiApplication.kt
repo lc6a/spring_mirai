@@ -28,35 +28,5 @@ suspend fun main(args: Array<String>) {
     //bot.join()
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-const val qq = 2120906525L
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const val password = "li12345678.."
+const val qq = 12456789L    //你的账号
+const val password = "你的密码"

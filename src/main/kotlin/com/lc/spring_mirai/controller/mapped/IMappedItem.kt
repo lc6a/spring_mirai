@@ -26,4 +26,6 @@ interface IMappedItem<T> {
      * 是否可以映射成功，只需要考虑[required]为true的情况
      */
     fun mapping(item: IMappingItem<out T>): Boolean
+
+    override fun toString(): String
 }

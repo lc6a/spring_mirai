@@ -15,7 +15,6 @@ object Version{
 plugins {
     id("org.springframework.boot") version "2.4.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    id("net.mamoe.mirai-console") version "2.5.2" //尝试从Version.mirai获取失败了
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
 }
@@ -34,9 +33,6 @@ repositories {
     jcenter()
 }
 
-mirai {
-
-}
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
@@ -56,13 +52,18 @@ dependencies {
         exclude("net.mamoe", "mirai-core-utils")
     }
     implementation("net.mamoe:mirai-core-utils-jvm:${Version.mirai}")
+    implementation("net.mamoe:mirai-console:${Version.mirai}")
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
+    implementation("org.ow2.asm:asm-commons:9.1")
+    implementation("org.ow2.asm:asm-util:9.1")
+    implementation("com.auth0:java-jwt:3.10.3")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
+        freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=enable")
         jvmTarget = "15"
     }
 }

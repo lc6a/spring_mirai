@@ -31,8 +31,8 @@ class CtrlServiceImpl: CtrlService {
     @Transactional
     override fun getCtrlStatus(ctrlName: String): CtrlStatus {
         var ctrl = ctrlDao.findCtrlByName(ctrlName)
+        val ctBean = SpringApplicationContextUtil.context.getBean(ctrlName) as BaseBotController
         if (ctrl == null) {
-            val ctBean = SpringApplicationContextUtil.context.getBean(ctrlName) as BaseBotController
             ctrlDao.addCtrl(Ctrl(null, ctBean.showName, ctBean.enable, ctrlName))
             ctrl = ctrlDao.findCtrlByName(ctrlName)
             val ann = AnnotationUtils.findAnnotation(ctBean.javaClass, GroupFilter::class.java)
@@ -48,7 +48,8 @@ class CtrlServiceImpl: CtrlService {
             }
 
         }
-        return CtrlStatus(ctrl!!, ctrlDao.findCtrlIncludes(ctrl.id!!), ctrlDao.findCtrlExcludes(ctrl.id!!))
+        ctrl!!.managerUrl = ctBean.managerUrl
+        return CtrlStatus(ctrl, ctrlDao.findCtrlIncludes(ctrl.id!!), ctrlDao.findCtrlExcludes(ctrl.id!!))
     }
 
     override fun setEnable(enable: Boolean, ctrlName: String) {

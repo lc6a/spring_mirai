@@ -6,5 +6,8 @@ package com.lc.spring_mirai.annotation
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 @MustBeDocumented
 annotation class PermissionFilter (
+        /**
+         * 权限的唯一标识，请确保跟其他权限不重复
+         */
         val value: String
 )

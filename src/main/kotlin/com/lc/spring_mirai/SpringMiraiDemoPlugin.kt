@@ -23,7 +23,6 @@ object SpringMiraiDemoPlugin: KotlinPlugin(
     override fun onEnable() {
         logger.debug { "Start Spring Mirai" }
         logger.warning{ "Class:${Class.forName("com.lc.spring_mirai.demo.controller.TestController")}"}
-        runApplication<SpringMiraiApplication>()
     }
 }
 
@@ -32,6 +31,5 @@ object DemoPluginData: AbstractPluginData() {
     /**
      * 这个 [PluginData] 保存时使用的名称.
      */
-    override val saveName: String
-        get() = TODO("Not yet implemented")
+    override val saveName: String = "SpringMiraiDemo"
 }

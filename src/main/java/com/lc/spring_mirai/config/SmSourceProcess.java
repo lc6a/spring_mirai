@@ -4,11 +4,12 @@
  */
 package com.lc.spring_mirai.config;
 
+import com.lc.spring_mirai.annotation.SmResource;
+
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
-import javax.tools.Diagnostic;
 import java.util.HashSet;
 import java.util.Set;
 

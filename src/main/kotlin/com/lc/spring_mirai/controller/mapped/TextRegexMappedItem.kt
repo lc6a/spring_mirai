@@ -15,4 +15,8 @@ open class TextRegexMappedItem(text: kotlin.String) : TextMappedItem(text) {
     override fun mapping(item: IMappingItem<out String>): Boolean {
         return item.value.matches(regex)
     }
+
+    override fun toString(): String {
+        return "[$regex]"
+    }
 }

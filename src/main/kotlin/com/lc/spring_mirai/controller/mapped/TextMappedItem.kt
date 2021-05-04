@@ -7,4 +7,8 @@ import com.lc.spring_mirai.request.mapping.IMappingItem
  */
 abstract class TextMappedItem(
     open val text: String,
-) : AbstractMappedItem<String>()
+) : AbstractMappedItem<String>() {
+    override fun toString(): String {
+        return text
+    }
+}

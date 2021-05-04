@@ -14,7 +14,7 @@ import javax.annotation.Resource
  */
 @Component("defaultCtrlManager")
 class CtrlManager {
-    protected val ctrlList = mutableListOf<ControllerClass>()
+    val ctrlList = mutableListOf<ControllerClass>()
 
     @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('controllerMappedFactory')}")
     protected lateinit var controllerMappedFactory: ControllerMappedFactory

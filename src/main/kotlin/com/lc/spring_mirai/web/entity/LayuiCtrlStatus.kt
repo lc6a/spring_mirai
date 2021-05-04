@@ -1,11 +1,16 @@
 package com.lc.spring_mirai.web.entity
 
+import net.mamoe.mirai.console.plugin.description.PluginDescription
+
 data class LayuiCtrlStatus(
     var ctrlName: String,
     var showName: String,
     var enable: Boolean,
     var includes: List<List<Long>>,
-    var excludes: List<List<Long>>
+    var excludes: List<List<Long>>,
+    var miraiPlugin: Boolean = false,
+    var pluginDescription: PluginDescription? = null,
+    var managerUrl: String? = null
 ) {
     companion object {
         fun fromCtrlStatus(status: CtrlStatus): LayuiCtrlStatus {
@@ -26,7 +31,7 @@ data class LayuiCtrlStatus(
             }
             return LayuiCtrlStatus(status.ctrl.ctrlName,
                 status.ctrl.showName, status.ctrl.enable,
-                includes1, excludes1
+                includes1, excludes1, managerUrl = status.ctrl.managerUrl
             )
         }
     }

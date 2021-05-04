@@ -18,4 +18,8 @@ open class PathVarMappedItem(
     override fun mapping(item: IMappingItem<out String>): Boolean {
         return true
     }
+
+    override fun toString(): String {
+        return "{$text}"
+    }
 }

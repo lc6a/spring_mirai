@@ -79,7 +79,7 @@ class CtrlRegister {
     /**
      * 在一堆注解里面创建过滤器
      */
-    protected fun createFilter(annotations: List<Annotation>,ctrl: ControllerClass?, func: Func?):
+    fun createFilter(annotations: List<Annotation>,ctrl: ControllerClass?, func: Func?):
             suspend (Event) -> Boolean{
         return  { event ->
             filters.all { it.filter(FilterData(event, annotations, ctrl, func)) }

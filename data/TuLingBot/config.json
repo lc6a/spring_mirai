@@ -1,0 +1,5 @@
+{
+  "apikey":"api令牌",
+  "gkeyword":"群聊触发开始字符",
+  "fkeyword":"私聊触发开始字符"
+}

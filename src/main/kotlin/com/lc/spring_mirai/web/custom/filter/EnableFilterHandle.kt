@@ -1,4 +1,4 @@
-package com.lc.spring_mirai.web.filter
+package com.lc.spring_mirai.web.custom.filter
 
 import com.lc.spring_mirai.annotation.Priority
 import com.lc.spring_mirai.annotation.PriorityNum

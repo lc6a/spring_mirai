@@ -20,13 +20,6 @@ class SpringMiraiApplication
 suspend fun main(args: Array<String>) {
     runApplication<SpringMiraiApplication>(*args)
     val bean = SpringApplicationContextUtil.context.getBean(StartSpringMirai::class.java)
-    val bot = BotFactory.newBot(qq, password) {
-        fileBasedDeviceInfo()
-        protocol = BotConfiguration.MiraiProtocol.ANDROID_PAD
-    }.alsoLogin()
     MiraiConsoleTerminalLoader.startAsDaemon()
     //bot.join()
 }
-
-const val qq = 12456789L    //你的账号
-const val password = "你的密码"

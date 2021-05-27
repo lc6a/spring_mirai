@@ -1,7 +1,6 @@
 package com.lc.spring_mirai.application
 
 import com.lc.spring_mirai.controller.manager.CtrlManager
-import net.mamoe.mirai.BotFactory
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
 

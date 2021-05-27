@@ -32,6 +32,7 @@ import java.util.*
 import javax.websocket.*
 
 import javax.websocket.server.PathParam
+import kotlin.jvm.Throws
 
 
 @ServerEndpoint("/command/{username}")

@@ -22,7 +22,14 @@ open class ControllerClass(
      */
     open val clazz = ctrlObj::class
 
+    /**
+     * 可映射项
+     */
     override lateinit var mappedItems: List<IMappedItem<*>>
+
+    /**
+     * 有效方法列表
+     */
     open lateinit var functions: List<Func>
 
 }

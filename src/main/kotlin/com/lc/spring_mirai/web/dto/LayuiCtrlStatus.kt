@@ -1,5 +1,7 @@
-package com.lc.spring_mirai.web.entity
+package com.lc.spring_mirai.web.dto
 
+import com.lc.spring_mirai.web.entity.CtrlStatus
+import com.lc.spring_mirai.web.entity.IdTypes
 import net.mamoe.mirai.console.plugin.description.PluginDescription
 
 data class LayuiCtrlStatus(

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service
 
 @Service
 class TestServiceImpl : TestService {
-    override fun test(): String = "test service"
+    override fun test(): String = "测试回复"
 }

@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>状态</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="//unpkg.com/layui@2.6.4/dist/css/layui.css">
+    <script src="//unpkg.com/layui@2.6.4/dist/layui.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/url.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="/js/main.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <br><br><br><br>
+        <el-row>
+            <el-col :span="18" :offset="3">
+                <el-card body-style="{background: #d3dce6}">
+                    <div slot="header">
+                        <span>概览</span>
+                    </div>
+                    <div v-loading="loading" >
+                        <el-row>
+                            <el-col :span="6" >
+                                <a v-on:click="gotoCtrl">
+                                <el-card shadow="hover">
+                                    <div slot="header">
+                                        <span>功能概览</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            已开启 {{ctrls.enable}} 个，
+                                            共 {{ctrls.count}} 个
+                                        </div>
+                                    </div>
+                                </el-card>
+                            </a>
+                            </el-col>
+                            <el-col :span="6" :offset="3">
+                                <a v-on:click="gotoPlugin">
+                                <el-card shadow="hover">
+                                    <div slot="header">
+                                        <span>插件概览</span>
+                                    </div>
+                                    <div >
+                                        <div>
+                                            已开启 {{plugins.enable}} 个，
+                                            共 {{plugins.count}} 个
+                                        </div>
+                                    </div>
+                                </el-card></a>
+                            </el-col>
+                            <el-col :span="6" :offset="3">
+                                <a v-on:click="gotoBot">
+                                    <el-card shadow="hover">
+                                        <div slot="header">
+                                            <span>机器人概览</span>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                在线 {{bot.online}} 个，
+                                                共 {{bot.count}} 个
+                                            </div>
+                                        </div>
+                                    </el-card>
+                                </a>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </el-card>
+                
+            </el-col>
+        </el-row>
+        
+    </div>
+
+    <script>
+
+
+        let vue = new Vue({
+            el: "#app",
+            data: {
+                ctrls: {
+                    count: 10,
+                    enable: 6
+                },
+                plugins: {
+                    count: 7,
+                    enable: 3
+                },
+                bot: {
+                    count: 2,
+                    online: 1
+                },
+                loading:true
+            },
+            methods: {
+                // 从后台更新表格数据
+                getData: function (fn) {
+                    axios.get("/manager/main?page=1&limit=100")
+                        .then(resp => fn(resp.data))
+                        .catch(function (e) {
+                            this.$message.error("刷新表格失败")
+                        })
+                },
+                updateBots() {
+                    let vue = this;
+                    axios.get("/bot/bots")
+                        .then(resp => {
+                            /**
+                             * @type Array<Object>
+                             */
+                            let bots = resp.data;
+                            vue.bot.count = bots.length;
+                            vue.bot.online = bots.filter(v => v.online).length;
+                        })
+                },
+                updateCtrls() {
+                    let vue = this;
+                    axios.get("/manager/main?page=1&limit=100")
+                        .then(resp => {
+                            /**
+                             * @type Array
+                             */
+                            let ctrls = resp.data.data;
+                            vue.ctrls.count = ctrls.length;
+                            vue.ctrls.enable = ctrls.filter(v => v.enable).length;
+                        })
+                },
+                updatePlugins() {
+                    let vue = this;
+                    axios.get("/miraiConsole/plugins")
+                        .then(resp => {
+                            let plugins = resp.data;
+                            vue.plugins.count = plugins.length;
+                            vue.plugins.enable = plugins.filter(v => v.enable).length;
+                        })
+                },
+                gotoPlugin() {
+                    parent.window.goto("/pluginStatus.html")
+                },
+                gotoCtrl() {
+                    parent.window.goto("/status2.html")
+                },
+                gotoBot() {
+                    parent.window.goto("/bot.html")
+                }
+            },
+            created: function() {
+                this.updateBots();
+                this.updateCtrls();
+                this.updatePlugins();
+                this.loading =false;
+            }
+        });
+    </script>
+</body>
+
+</html>

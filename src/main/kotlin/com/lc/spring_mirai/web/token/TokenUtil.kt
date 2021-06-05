@@ -2,7 +2,7 @@ package com.lc.spring_mirai.web.token
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.lc.spring_mirai.web.entity.Token
+import com.lc.spring_mirai.web.dto.Token
 import com.lc.spring_mirai.web.error.TokenAuthExpiredException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component

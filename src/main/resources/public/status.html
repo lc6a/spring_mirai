@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>状态</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="//unpkg.com/layui@2.6.4/dist/css/layui.css">
+    <script src="//unpkg.com/layui@2.6.4/dist/layui.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/url.js"></script>
+    <script src="/js/main.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- 主体表格 -->
+        <table id="table-main"></table>
+    </div>
+
+
+    <script>
+        layui.use('table', function () {
+            var table = layui.table;
+            //第一个实例
+            table.render({
+                elem: '#table-main'
+                , url: getUrl('/manager/main') //数据接口
+                , page: true //开启分页
+                , cols: [[ //表头
+                    { field: 'ctrlName', title: '控制器', sort: true }
+                    , { field: 'showName', title: '名称', sort: true }
+                    , { field: 'enable', title: '状态', sort: true, templet: '<div><input type="checkbox" {{#if(true){return"checked"}}} ></div>' }
+                    , { field: 'includes', title: '白名单' }
+                    , { field: 'excludes', title: '黑名单' }
+                    , { field: 'manager', title: '管理', templet: '<div><button>管理</button></div>' }
+                ]]
+            });
+        });
+
+        let vue = new Vue({
+            el: "#app",
+            data: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

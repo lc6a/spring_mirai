@@ -92,7 +92,6 @@ fun getMd5(bot: Bot): ByteArray {
     botAccountField.isAccessible = true
     val botAccount = botAccountField.get(bot)
     botAccountField.isAccessible = botAccountFieldAccessible
-    println(botAccount)
     val md5Field = Class.forName("net.mamoe.mirai.internal.BotAccount").getDeclaredField("passwordMd5")
     val md5FieldAccessible = md5Field.canAccess(botAccount)
     md5Field.isAccessible = true

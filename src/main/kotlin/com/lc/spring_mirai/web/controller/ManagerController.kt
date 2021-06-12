@@ -3,13 +3,11 @@ package com.lc.spring_mirai.web.controller
 import com.lc.spring_mirai.util.JsonUtil
 import com.lc.spring_mirai.util.SpringApplicationContextUtil
 import com.lc.spring_mirai.web.controller.bot.BaseBotController
+import com.lc.spring_mirai.web.dto.LayuiCtrlStatus
+import com.lc.spring_mirai.web.dto.LayuiPage
+import com.lc.spring_mirai.web.dto.LayuiTable
 import com.lc.spring_mirai.web.entity.*
 import com.lc.spring_mirai.web.service.CtrlService
-import net.mamoe.mirai.console.plugin.PluginManager
-import net.mamoe.mirai.console.plugin.PluginManager.INSTANCE.description
-import net.mamoe.mirai.console.plugin.description
-import net.mamoe.mirai.console.plugin.id
-import net.mamoe.mirai.console.plugin.name
 import org.springframework.web.bind.annotation.*
 import javax.annotation.Resource
 import kotlin.math.max

@@ -1,31 +1,21 @@
 package com.lc.spring_mirai.web.controller.bot
 
-import com.github.salomonbrys.kotson.toJsonArray
 import com.lc.spring_mirai.annotation.BotController
 import com.lc.spring_mirai.annotation.PermissionFilter
 import com.lc.spring_mirai.annotation.RequestMapped
 import com.lc.spring_mirai.demo.service.PermissionService
-import com.lc.spring_mirai.qq
-import com.lc.spring_mirai.util.JsonUtil
 import com.lc.spring_mirai.web.controller.bot.LoginBotController.Companion.PERMISSION_LOGIN
 import com.lc.spring_mirai.web.controller.bot.LoginBotController.Companion.ctrlName
 import com.lc.spring_mirai.web.error.PermissionErrors
 import com.lc.spring_mirai.web.service.DataService
 import net.mamoe.mirai.Bot
 import net.mamoe.mirai.BotFactory
-import net.mamoe.mirai.alsoLogin
 import net.mamoe.mirai.event.events.MessageEvent
 import net.mamoe.mirai.utils.BotConfiguration
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseBody
 import javax.annotation.Resource
 
 @BotController(ctrlName)
 @PermissionFilter(PERMISSION_LOGIN)
-@ResponseBody
-@RequestMapping("bot")
-@CrossOrigin
 class LoginBotController: BaseBotController() {
 
     companion object {
@@ -33,13 +23,7 @@ class LoginBotController: BaseBotController() {
         internal const val ctrlName = "loginBotController"
     }
 
-    @Resource
-    private lateinit var jsonUtil: JsonUtil
-
-    @RequestMapping("bots")
-    fun bots(): String {
-        return jsonUtil.toJson(getBots().map { BotStatus(it.id, it.isOnline) })
-    }
+    override var managerUrl: String? = "/ctrl/loginManager.html"
 
     @Resource
     private lateinit var dataService: DataService

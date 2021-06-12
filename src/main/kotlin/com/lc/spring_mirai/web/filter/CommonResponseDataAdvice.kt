@@ -1,14 +1,14 @@
 package com.lc.spring_mirai.web.filter
 
 import com.lc.spring_mirai.util.JsonUtil
-import com.lc.spring_mirai.web.entity.Result
+import com.lc.spring_mirai.web.dto.Result
 import org.springframework.core.MethodParameter
 import org.springframework.http.MediaType
-import org.springframework.web.bind.annotation.RestControllerAdvice
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.server.ServerHttpRequest
 import org.springframework.http.server.ServerHttpResponse
+import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
 import javax.annotation.Resource
 
 @RestControllerAdvice

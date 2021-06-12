@@ -6,11 +6,7 @@ import com.lc.spring_mirai.annotation.Replace
 import com.lc.spring_mirai.controller.filter.FilterData
 import com.lc.spring_mirai.controller.filter.FilterHandle
 import com.lc.spring_mirai.controller.filter.GroupFilterHandle
-import com.lc.spring_mirai.web.controller.bot.BaseBotController
 import com.lc.spring_mirai.web.service.CtrlService
-import net.mamoe.mirai.event.events.BotEvent
-import net.mamoe.mirai.event.events.FriendEvent
-import net.mamoe.mirai.event.events.GroupEvent
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
 
@@ -26,18 +22,18 @@ class IncludeExcludeFilterHandle: FilterHandle {
      * 过滤器，返回是否通过要求
      */
     override suspend fun filter(data: FilterData): Boolean {
-        val localCt = data.ctrl ?: return true
-        if (localCt.ctrlObj !is BaseBotController) return true
-        val event = data.event
-        if (event is BotEvent) {
-            if (!ctrlService.botFilter(event.bot.id, localCt.beanName)) return false
-        }
-        if (event is GroupEvent) {
-            if (!ctrlService.groupFilter(event.group.id, localCt.beanName)) return false
-        }
-        if (event is FriendEvent) {
-            if (!ctrlService.friendFilter(event.friend.id, localCt.beanName)) return false
-        }
+//        val localCt = data.ctrl ?: return true
+//        if (localCt.ctrlObj !is BaseBotController) return true
+//        val event = data.event
+//        if (event is BotEvent) {
+//            if (!ctrlService.botFilter(event.bot.id, localCt.beanName)) return false
+//        }
+//        if (event is GroupEvent) {
+//            if (!ctrlService.groupFilter(event.group.id, localCt.beanName)) return false
+//        }
+//        if (event is FriendEvent) {
+//            if (!ctrlService.friendFilter(event.friend.id, localCt.beanName)) return false
+//        }
         return true
     }
 }

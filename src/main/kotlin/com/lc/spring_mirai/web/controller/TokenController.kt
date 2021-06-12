@@ -1,6 +1,6 @@
 package com.lc.spring_mirai.web.controller
 
-import com.lc.spring_mirai.web.entity.Result
+import com.lc.spring_mirai.web.dto.Result
 import com.lc.spring_mirai.web.error.TokenAuthExpiredException
 import com.lc.spring_mirai.web.token.TokenUtil
 import net.mamoe.mirai.Bot

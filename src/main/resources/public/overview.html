@@ -57,17 +57,19 @@
                                 </el-card></a>
                             </el-col>
                             <el-col :span="6" :offset="3">
-                                <el-card shadow="hover">
-                                    <div slot="header">
-                                        <span>机器人概览</span>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            在线 {{bot.online}} 个，
-                                            共 {{bot.count}} 个
+                                <a v-on:click="gotoBot">
+                                    <el-card shadow="hover">
+                                        <div slot="header">
+                                            <span>机器人概览</span>
                                         </div>
-                                    </div>
-                                </el-card>
+                                        <div>
+                                            <div>
+                                                在线 {{bot.online}} 个，
+                                                共 {{bot.count}} 个
+                                            </div>
+                                        </div>
+                                    </el-card>
+                                </a>
                             </el-col>
                         </el-row>
                     </div>
@@ -145,6 +147,9 @@
                 },
                 gotoCtrl() {
                     parent.window.goto("/status2.html")
+                },
+                gotoBot() {
+                    parent.window.goto("/bot.html")
                 }
             },
             created: function() {

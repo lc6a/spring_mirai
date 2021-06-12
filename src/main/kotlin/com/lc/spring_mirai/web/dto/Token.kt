@@ -1,4 +1,4 @@
-package com.lc.spring_mirai.web.entity;
+package com.lc.spring_mirai.web.dto;
 
 import java.util.*
 

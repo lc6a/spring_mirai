@@ -1,6 +1,7 @@
 
 function host() {
-    return "49.235.33.223:13000"
+    //return "49.235.33.223:13000"
+    return "localhost:13000"
 }
     axios.defaults.baseURL = "http://" + host();
     axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';

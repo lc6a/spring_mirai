@@ -1,7 +1,8 @@
 
 spring-mirai:
-  #name-config: defaultBeanNameConfig
+  # name-config: defaultBeanNameConfig
   bean-name:
+     testBean: test2
     # key: name
 
 spring:

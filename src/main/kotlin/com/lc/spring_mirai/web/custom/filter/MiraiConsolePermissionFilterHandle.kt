@@ -21,6 +21,7 @@ import net.mamoe.mirai.event.events.MessageEvent
 import org.springframework.stereotype.Component
 
 @Component
+//使用mirai-console权限系统替换旧权限系统
 @Replace(PermissionFilterHandle::class)
 @Priority(PriorityNum.DEFAULT)
 class MiraiConsolePermissionFilterHandle:

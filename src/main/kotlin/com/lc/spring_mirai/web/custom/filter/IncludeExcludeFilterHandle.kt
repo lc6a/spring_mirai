@@ -24,7 +24,6 @@ class IncludeExcludeFilterHandle: FilterHandle {
 
     /**
      * 过滤器，返回是否通过要求
-     * 如果是注解的过滤器，如果没有该注解，一般返回true
      */
     override suspend fun filter(data: FilterData): Boolean {
         val localCt = data.ctrl ?: return true

@@ -1,4 +1,4 @@
-package com.lc.agent;
+package com.lc.spring_mirai.agent;
 
 import java.lang.instrument.Instrumentation;
 import java.util.jar.JarFile;

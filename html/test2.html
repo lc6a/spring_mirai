@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>test</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <input type="text" v-model="inputText"> 
+            <p>结果：{{getAns(inputText)}}</p>  
+        </div>
+        
+    </body>
+    <script>
+        let vue = new Vue({
+            el: "#app",
+            data: {
+                inputText: ""   //被绑定变量
+            },
+            methods: {
+                getAns(t) {
+                    return eval(t);
+                }
+            }
+        })
+    </script>
+
+</html>

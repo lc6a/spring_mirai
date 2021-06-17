@@ -4,7 +4,7 @@ object Version{
     /**
      * mirai版本
      */
-    const val mirai = "2.5.2"
+    const val mirai = "2.6.6"
 
     /**
      * spring_mirai开发版本

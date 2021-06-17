@@ -1,10 +1,5 @@
 package com.lc.spring_mirai.demo.test
 
-import com.lc.spring_mirai.SpringMiraiApplication
-import com.lc.spring_mirai.util.SpringApplicationContextUtil
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.runApplication
-import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
 
@@ -27,11 +22,11 @@ class Test2Bean: TestBean() {
     }
 }
 
-fun main() {
-    runApplication<SpringMiraiApplication>()
-    val test = SpringApplicationContextUtil.context.getBean(Test::class.java)
-    test.show()
-}
+//fun main() {
+//    runApplication<SpringMiraiApplication>()
+//    val test = SpringApplicationContextUtil.context.getBean(Test::class.java)
+//    test.show()
+//}
 
 @Component
 class Test{

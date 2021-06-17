@@ -12,7 +12,6 @@ import net.mamoe.mirai.message.data.Message
 import net.mamoe.mirai.message.data.content
 import org.springframework.stereotype.Component
 import java.io.IOException
-import java.lang.Exception
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
@@ -106,7 +105,7 @@ class CtrlCommandWebSocket {
                 sendMessage(session, "\n")
                 buffer = StringBuffer()
                 val ret = runBlocking {
-                    execCommand(line) { str -> sendMessage(session, str) }
+                    execSmCommand(line) { str -> sendMessage(session, str) }
                 }
                 if (ret.isNotEmpty())
                     sendMessage(session, ret)
@@ -115,16 +114,6 @@ class CtrlCommandWebSocket {
             }
         }
 
-    }
-
-    private fun execCommand(line: String, fn: (String) -> Unit): String {
-        Bot.instances.forEach {
-            runBlocking {
-                WebCommandEvent(it, line, (Date().time / 1000).toInt(), fn).broadcast()
-            }
-
-        }
-        return ""
     }
 
     //错误时调用
@@ -150,6 +139,21 @@ class CtrlCommandWebSocket {
         return sessionPools
     }
 
+}
+
+/**
+ * 执行sm指令
+ * @param line 一行指令
+ * @param fn 需要回复消息时的回调
+ */
+fun execSmCommand(line: String, fn: (String) -> Unit): String {
+    Bot.instances.forEach {
+        runBlocking {
+            WebCommandEvent(it, line, (Date().time / 1000).toInt(), fn).broadcast()
+        }
+
+    }
+    return ""
 }
 
 /**

@@ -24,6 +24,10 @@ class TokenController {
         return try {
             tokenUtil.checkToken(token, response)
             val id = tokenUtil.parseToken(token).userId
+            // -1 是控制台
+            if (id == -1L) {
+                return Result.success.toJson()
+            }
             Bot.instances.forEach {
                 if (it.id == id) {
                     return Result.success.toJson()
@@ -42,6 +46,9 @@ class TokenController {
     @RequestMapping("user")
     fun user(@RequestParam token: String): UserData? {
         val id = tokenUtil.parseToken(token).userId
+        if (id == -1L) {
+            return UserData(id, "控制台", "/picture/console.jpeg")
+        }
         Bot.instances.forEach { bot ->
             if (bot.id == id) {
                 return UserData(bot.id, bot.nick, bot.avatarUrl)

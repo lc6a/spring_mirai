@@ -4,16 +4,28 @@ import com.lc.spring_mirai.config.Config
 import com.lc.spring_mirai.config.ServerConfig
 import com.lc.spring_mirai.util.SpringApplicationContextUtil
 import com.lc.spring_mirai.util.URLOpener
-import net.mamoe.mirai.console.data.AbstractPluginData
+import com.lc.spring_mirai.web.controller.execSmCommand
+import kotlinx.coroutines.runBlocking
+import net.mamoe.mirai.console.command.*
+import net.mamoe.mirai.console.command.CommandManager.INSTANCE.register
+import net.mamoe.mirai.console.command.CommandManager.INSTANCE.unregister
+import net.mamoe.mirai.console.command.descriptor.*
 import net.mamoe.mirai.console.data.PluginData
 import net.mamoe.mirai.console.extension.PluginComponentStorage
+import net.mamoe.mirai.console.permission.Permission
+import net.mamoe.mirai.console.permission.PermissionService
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
+import net.mamoe.mirai.message.data.Message
+import net.mamoe.mirai.message.data.MessageChain
+import net.mamoe.mirai.message.data.buildMessageChain
 import net.mamoe.mirai.utils.LoggerAdapters.asMiraiLogger
 import net.mamoe.mirai.utils.MiraiLogger
 import net.mamoe.mirai.utils.debug
 import org.slf4j.LoggerFactory
 import org.springframework.boot.runApplication
+import org.springframework.stereotype.Component
+import kotlin.reflect.typeOf
 
 object SpringMiraiStartPlugin: KotlinPlugin(
     JvmPluginDescription(
@@ -38,14 +50,100 @@ object SpringMiraiStartPlugin: KotlinPlugin(
 
     override fun onEnable() {
         logger.debug { "Start Spring Mirai" }
+        SpringApplicationContextUtil.context.getBeansOfType(Command::class.java).values.forEach {
+            it.register()
+        }
+    }
 
+    override fun onDisable() {
+        SpringApplicationContextUtil.context.getBeansOfType(Command::class.java).values.forEach {
+            it.unregister()
+        }
     }
 }
 
 
-object DemoPluginData: AbstractPluginData() {
+
+
+
+@Component
+class SmCommandInvoker: SimpleCommand(
+    SpringMiraiStartPlugin, primaryName,
+    description = "执行SpringMirai指令"
+) {
+
+    companion object {
+        private const val primaryName = "sm"
+    }
+
+    @Handler
+    fun CommandSender.handle(vararg args: String) {
+        val command = buildString { args.forEach { append(it).append(' ') } }.trimEnd()
+        execSmCommand(command) {
+            runBlocking {
+                sendMessage(it)
+            }
+        }
+    }
+
+//    override suspend fun CommandSender.onCommand(args: MessageChain) {
+//        val command = args.content.substringAfter(primaryName).trimStart()
+//        val logger = MiraiLogger.create("sm")
+//        logger.info("message: ${args.content}")
+//        logger.info("command: $command")
+//        execSmCommand(command) {
+//            runBlocking {
+//                sendMessage(it)
+//            }
+//        }
+//    }
+}
+
+abstract class MyRawCommand(
     /**
-     * 这个 [PluginData] 保存时使用的名称.
+     * 指令拥有者.
+     * @see CommandOwner
      */
-    override val saveName: String = "SpringMiraiDemo"
+    public override val owner: CommandOwner = SpringMiraiStartPlugin,
+    public override val primaryName: String,
+    /** 用法说明, 用于发送给用户 */
+    public override val usage: String = "/sm sm指令内容",
+    /** 指令描述, 用于显示在 [BuiltInCommands.HelpCommand] */
+    public override val description: String = usage,
+    /** 指令父权限 */
+    parentPermission: Permission = owner.parentPermission,
+    override val prefixOptional: Boolean = false,
+    override val secondaryNames: Array<out String> = emptyArray()
+) : Command {
+
+    override val permission: Permission by lazy {
+        val id = owner.permissionId("command.$primaryName")
+        PermissionService.INSTANCE[id] ?: PermissionService.INSTANCE.register(id, description, parentPermission)
+    }
+
+    @OptIn(ExperimentalStdlibApi::class)
+    @ExperimentalCommandDescriptors
+    override val overloads: List<@JvmWildcard CommandSignature> = listOf(
+        CommandSignatureImpl(
+            receiverParameter = CommandReceiverParameter(false, typeOf<CommandSender>()),
+            valueParameters = listOf(AbstractCommandValueParameter.UserDefinedType.createRequired<Array<out Message>>("args", true))
+        ) { call ->
+            val sender = call.caller
+            val arguments = call.rawValueArguments
+            //sender.onCommand(buildMessageChain { arguments.forEach { +it.value } })
+            val message = buildString { arguments.forEach { append(it.value).append(' ') } }
+            val logger = MiraiLogger.create("sm-command")
+            logger.info(message)
+            sender.onCommand(buildMessageChain { +message })
+        }
+    )
+
+    /**
+     * 在指令被执行时调用.
+     *
+     * @param args 指令参数.
+     *
+     * @see CommandManager.execute 查看更多信息
+     */
+    public abstract suspend fun CommandSender.onCommand(args: MessageChain)
 }

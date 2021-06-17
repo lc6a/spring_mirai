@@ -2,6 +2,7 @@ package com.lc.spring_mirai.web.token
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.lc.spring_mirai.config.Config
 import com.lc.spring_mirai.demo.service.PermissionService
 import com.lc.spring_mirai.exception.PermissionDeniedException
 import com.lc.spring_mirai.web.dto.Token
@@ -18,6 +19,9 @@ class TokenUtil {
 
     @Resource
     private lateinit var permissionService: PermissionService
+
+    @Resource
+    private lateinit var config: Config
 
     @Resource
     var tokenUtil: TokenUtil? = null
@@ -96,7 +100,7 @@ class TokenUtil {
                 throw TokenAuthExpiredException()
             }
             // 2. 是否具有访问权限
-            if (!permissionService.havePermission(userId, LOGIN_PERMISSION)) {
+            if (!permissionService.havePermission(userId, LOGIN_PERMISSION) && userId != config.rootUserId && userId != -1L) {
                 throw PermissionDeniedException("没有登录权限")
             }
         } catch (e: Exception) {

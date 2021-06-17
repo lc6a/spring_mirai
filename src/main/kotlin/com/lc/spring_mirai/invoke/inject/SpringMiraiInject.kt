@@ -10,7 +10,9 @@ import net.mamoe.mirai.contact.Member
 import net.mamoe.mirai.contact.User
 import net.mamoe.mirai.event.Event
 import net.mamoe.mirai.event.events.*
-import net.mamoe.mirai.message.data.*
+import net.mamoe.mirai.message.data.MessageChain
+import net.mamoe.mirai.message.data.SingleMessage
+import net.mamoe.mirai.message.data.content
 import org.springframework.stereotype.Component
 import kotlin.reflect.full.isSubclassOf
 
@@ -81,6 +83,9 @@ class SpringMiraiInject: ParamInject {
                 return data.event.operatorOrBot
             }
             clazz.isSubclassOf(User::class) -> {
+                if (data.event is MessageEvent) {
+                    return data.event.sender
+                }
                 if (data.event !is UserEvent) {
                     throw ParamInjectException("${data.event}不是User事件")
                 }

@@ -8,7 +8,7 @@ import com.lc.spring_mirai.exception.PermissionDeniedException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
-@Service
+@Service("defaultPermissionService")
 open class PermissionServiceImpl : PermissionService {
     @Autowired
     private lateinit var permissionDao: PermissionDao

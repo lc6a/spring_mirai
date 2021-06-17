@@ -2,16 +2,23 @@ package com.lc.spring_mirai.web.token
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.lc.spring_mirai.demo.service.PermissionService
+import com.lc.spring_mirai.exception.PermissionDeniedException
 import com.lc.spring_mirai.web.dto.Token
 import com.lc.spring_mirai.web.error.TokenAuthExpiredException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
 import javax.servlet.http.HttpServletResponse
-import kotlin.jvm.Throws
+
+private const val LOGIN_PERMISSION = "loginPermission"
 
 @Component
 class TokenUtil {
+
+    @Resource
+    private lateinit var permissionService: PermissionService
+
     @Resource
     var tokenUtil: TokenUtil? = null
 
@@ -82,14 +89,21 @@ class TokenUtil {
             //1.判断 token 是否过期
             //年轻 token
             if (timeOfUse < yangToken!!) {
+
             } else if (timeOfUse >= yangToken && timeOfUse < oldToken!!) {
                 response.setHeader("token", tokenUtil!!.createToken(userId, userRole))
             } else {
                 throw TokenAuthExpiredException()
             }
+            // 2. 是否具有访问权限
+            if (!permissionService.havePermission(userId, LOGIN_PERMISSION)) {
+                throw PermissionDeniedException("没有登录权限")
+            }
         } catch (e: Exception) {
             throw TokenAuthExpiredException()
         }
+
+
         //        //2.角色匹配.
 //        if ("user".equals(userRole)) {
 //            return true;

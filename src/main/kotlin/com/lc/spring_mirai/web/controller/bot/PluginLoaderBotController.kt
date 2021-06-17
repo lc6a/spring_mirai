@@ -1,6 +1,6 @@
 package com.lc.spring_mirai.web.controller.bot
 
-import com.lc.spring_mirai.SpringMiraiDemoPlugin
+import com.lc.spring_mirai.SpringMiraiStartPlugin
 import com.lc.spring_mirai.annotation.BotController
 import com.lc.spring_mirai.annotation.RequestMapped
 import net.mamoe.mirai.console.plugin.PluginManager
@@ -42,8 +42,8 @@ class PluginLoaderBotController {
 
     @RequestMapped("load")
     fun load(): String {
-        SpringMiraiDemoPlugin.load()
-        SpringMiraiDemoPlugin.enable()
+        SpringMiraiStartPlugin.load()
+        SpringMiraiStartPlugin.enable()
         return "加载成功"
     }
 }

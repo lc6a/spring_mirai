@@ -1,9 +1,9 @@
 package com.lc.spring_mirai.invoke
 
 import com.lc.spring_mirai.controller.function.Func
-import com.lc.spring_mirai.invoke.inject.exception.ParamInjectException
 import com.lc.spring_mirai.invoke.inject.ParamInject
 import com.lc.spring_mirai.invoke.inject.ParamInjectData
+import com.lc.spring_mirai.invoke.inject.exception.ParamInjectException
 import com.lc.spring_mirai.request.EventRequest
 import com.lc.spring_mirai.util.beanSort.BeanSortUtil
 import org.springframework.stereotype.Component
@@ -52,6 +52,6 @@ class ParamInjectHandle {
                 return paramInject.inject(data)
             }
         }
-        throw ParamInjectException("无法注入参数${data.param}")
+        throw ParamInjectException("无法注入参数：${data.param}, 控制器方法：${data.param.func.kFunction}")
     }
 }

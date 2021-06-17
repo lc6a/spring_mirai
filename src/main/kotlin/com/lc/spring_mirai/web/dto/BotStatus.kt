@@ -8,5 +8,7 @@ data class BotStatus(
     var image: String?,
     var online: Boolean
 ) {
-    constructor(bot: Bot): this(bot.id, bot.nick, bot.avatarUrl, bot.isOnline)
+    constructor(bot: Bot): this(bot.id, kotlin.runCatching { bot.nick }.getOrDefault("未知") ,
+        kotlin.runCatching { bot.avatarUrl }.getOrDefault("未知") , bot.isOnline)
+
 }

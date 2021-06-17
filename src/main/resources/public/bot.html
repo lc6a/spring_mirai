@@ -101,10 +101,11 @@
       },
       // 从后台更新表格数据
       getData: function (fn) {
+        let that = this;
         axios.get("/bot/bots")
                 .then(resp => fn(resp.data))
                 .catch(function (e) {
-                  this.$message.error("刷新表格失败")
+                  that.$message.error("刷新表格失败")
                 })
       },
       botManager(row) {
@@ -112,6 +113,30 @@
       },
       loginNewBot() {
         console.log(JSON.stringify(this.loginBot));
+        let that = this;
+        let formData = new FormData();
+        formData.append('qqId', that.loginBot.qqId);
+        formData.append('password', that.loginBot.password);
+        formData.append('protocol', that.loginBot.protocol);
+        if (that.loginBot.deviceFile) {
+          formData.append('deviceFile', that.loginBot.deviceFile);
+        }
+        this.$message( "正在登录，可以刷新界面查看机器人状态，或者等待登录结果")
+        axios({
+          method: "post",
+          url: "/bot/newLogin",
+          data: formData,
+          headers: {'Content-Type': 'multipart/form-data; boundary=------WebKitFormBoundaryRO0YA4pq9oCgwTkt'}
+        }).then(resp => {
+          console.log(resp)
+          if (resp.data.ok) {
+            that.$message({message: "成功登录此账号", type: "success"});
+            that.loginBot = {protocol: 'ANDROID_PAD'}
+          } else {
+            that.$message.error(resp.data.msg);
+          }
+          this.updateData();
+        })
       },
       updateData() {
         this.loading = true;

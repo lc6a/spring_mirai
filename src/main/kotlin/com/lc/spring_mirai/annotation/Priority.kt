@@ -38,6 +38,12 @@ object PriorityNum {
     const val LOW = 10000
 
     /**
+     * 需要访问数据库的操作
+     * 建议较低优先级
+     */
+    const val DB = LOW
+
+    /**
      * 最低
      */
     const val LOWEST = 100000

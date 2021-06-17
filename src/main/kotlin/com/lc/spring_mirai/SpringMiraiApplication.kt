@@ -1,17 +1,20 @@
 package com.lc.spring_mirai
 
+import net.mamoe.mirai.console.plugin.PluginManager.INSTANCE.enable
+import net.mamoe.mirai.console.plugin.PluginManager.INSTANCE.load
 import net.mamoe.mirai.console.terminal.MiraiConsoleTerminalLoader
 import net.mamoe.mirai.console.util.ConsoleExperimentalApi
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
 
 @SpringBootApplication
 class SpringMiraiApplication
 
-@OptIn(ConsoleExperimentalApi::class)
-suspend fun main(args: Array<String>) {
-    runApplication<SpringMiraiApplication>(*args)
-    MiraiConsoleTerminalLoader.startAsDaemon()
-    //val loader =  ModuleClassLoader(File("app.jar"), SpringMiraiApplication::class.java.classLoader)
+var runArgs: Array<String> = emptyArray()
 
+@OptIn(ConsoleExperimentalApi::class)
+fun main(args: Array<String>) {
+    runArgs = args
+    MiraiConsoleTerminalLoader.startAsDaemon()
+    SpringMiraiStartPlugin.load()
+    SpringMiraiStartPlugin.enable()
 }

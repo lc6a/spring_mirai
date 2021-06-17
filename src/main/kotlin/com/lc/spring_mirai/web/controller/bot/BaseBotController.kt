@@ -16,4 +16,9 @@ abstract class BaseBotController {
     abstract var showName: String
     open var managerUrl: String? = null
 
+    companion object Return {
+        const val success = "成功"
+        const val fail = "失败"
+        const val noPerm = "没有权限"
+    }
 }

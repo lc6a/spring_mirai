@@ -8,15 +8,11 @@ import com.lc.spring_mirai.controller.filter.AnnotationFilterHandle
 import com.lc.spring_mirai.controller.filter.FilterData
 import com.lc.spring_mirai.controller.filter.PermissionFilterHandle
 import com.lc.spring_mirai.web.custom.event.WebCommandEvent
-import net.mamoe.mirai.console.command.BuiltInCommands
-import net.mamoe.mirai.console.command.CommandSender
 import net.mamoe.mirai.console.command.CommandSender.Companion.toCommandSender
 import net.mamoe.mirai.console.permission.Permission
 import net.mamoe.mirai.console.permission.PermissionId
 import net.mamoe.mirai.console.permission.PermissionService
 import net.mamoe.mirai.console.permission.PermissionService.Companion.hasPermission
-import net.mamoe.mirai.console.permission.PermitteeId
-import net.mamoe.mirai.event.events.GroupMessageEvent
 import net.mamoe.mirai.event.events.MessageEvent
 import org.springframework.stereotype.Component
 
@@ -40,6 +36,7 @@ class MiraiConsolePermissionFilterHandle:
         }
     }
 }
+
 
 object MiraiConsolePermissionAdapter {
     private const val NAMESPACE = "com.lc.spring_mirai"

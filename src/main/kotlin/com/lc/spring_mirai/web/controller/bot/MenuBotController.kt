@@ -34,25 +34,6 @@ class MenuBotController: BaseBotController() {
 
     private fun getFuncList(event: MessageEvent): List<Func> {
         val funcList = mutableListOf<Func>()
-//         ctrlManager.ctrlList.filter {  // 类过滤
-//             val data = FilterData(event, it.clazz.annotations, it, null)
-//            runBlocking {
-//                includeExcludeFilterHandle.filter(data)
-//            } and runBlocking {
-//                miraiConsolePermissionFilterHandle.filter(data)
-//            }
-//        }.forEach { ctrl ->
-//             ctrl.functions.filter {    // 方法过滤
-//                 val data = FilterData(event, it.kFunction.annotations, null, it)
-//                runBlocking {
-//                    includeExcludeFilterHandle.filter(data)
-//                } and runBlocking {
-//                    miraiConsolePermissionFilterHandle.filter(data)
-//                }
-//            }.also {
-//                funcList.addAll(it)
-//            }
-//         }
         ctrlManager.ctrlList.forEach { ctrl ->
             ctrl.functions.forEach {
                 // 过滤，无需关注具体过滤规则 权限、enable、过滤均在内
@@ -76,6 +57,7 @@ class MenuBotController: BaseBotController() {
         val funcList = getFuncList(event)
         val sb = StringBuilder()
         funcList.forEach { func ->
+            sb.append("⭐").append('\t')
             func.ctrl.mappedItems.forEach{
                 sb.append(it.toString()).append(' ')
             }

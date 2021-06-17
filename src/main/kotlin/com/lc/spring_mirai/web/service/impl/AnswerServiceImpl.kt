@@ -4,7 +4,7 @@ import com.lc.spring_mirai.web.dao.AnswerDao
 import com.lc.spring_mirai.web.entity.Answer
 import com.lc.spring_mirai.web.service.AnswerService
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
+//import org.springframework.transaction.annotation.Transactional
 import javax.annotation.Resource
 
 @Service
@@ -29,7 +29,7 @@ class AnswerServiceImpl: AnswerService {
         return answerDao.findVagueAnswer(question)
     }
 
-    @Transactional
+    //@Transactional
     override fun setAnswer(answer: Answer) {
         answerDao.deleteAnswer(answer.question)
         if (answer.answer.isNotBlank()) {
@@ -37,7 +37,7 @@ class AnswerServiceImpl: AnswerService {
         }
     }
 
-    @Transactional
+    //@Transactional
     override fun setVagueAnswer(answer: Answer) {
         answerDao.deleteAnswer(answer.question)
         if (answer.answer.isNotBlank()) {

@@ -6,8 +6,8 @@ import com.lc.spring_mirai.annotation.PriorityNum
 import com.lc.spring_mirai.demo.service.PermissionService
 import net.mamoe.mirai.event.events.GroupMessageEvent
 import net.mamoe.mirai.event.events.MessageEvent
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import javax.annotation.Resource
 
 /**
  * @Author 19525
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component
 @Priority(PriorityNum.HIGH)
 class PermissionFilterHandle: AnnotationFilterHandle<PermissionFilter>(PermissionFilter::class.java) {
 
-    @Autowired
+    @Resource(name = "#{springMiraiBeanNameManager.beanNameConfig.getBeanName('permissionService')}")
     private lateinit var permissionService: PermissionService
 
     override fun filterByAnnotation(annotations: List<PermissionFilter>, data: FilterData): Boolean {

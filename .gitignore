@@ -88,4 +88,5 @@ SpringMiraiApplication.kt
 /src/main/kotlin/com/lc/spring_mirai/SpringMiraiApplication.kt
 /bots/
 /config/
-/cache/session.bin
+/cache/
+/data/

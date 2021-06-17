@@ -9,7 +9,7 @@ import com.lc.spring_mirai.web.entity.*
 import com.lc.spring_mirai.web.service.CtrlService
 import org.springframework.core.annotation.AnnotationUtils
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
+//import org.springframework.transaction.annotation.Transactional
 import javax.annotation.Resource
 
 @Service
@@ -28,7 +28,7 @@ class CtrlServiceImpl: CtrlService {
         return map
     }
 
-    @Transactional
+    //@Transactional
     override fun getCtrlStatus(ctrlName: String): CtrlStatus {
         var ctrl = ctrlDao.findCtrlByName(ctrlName)
         val ctBean = SpringApplicationContextUtil.context.getBean(ctrlName) as BaseBotController

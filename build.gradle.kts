@@ -9,7 +9,7 @@ object Version{
     /**
      * spring_mirai开发版本
      */
-    const val dev = "1"
+    const val dev = "2"
 
     const val kotlin = "1.4.21"
 }

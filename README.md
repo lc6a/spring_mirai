@@ -17,6 +17,27 @@
 > 进入管理页面后记得登录至少一个机器人。
 > 
 > 程序内置了mirai-console，因此可以加载插件，去官方论坛寻找相关教程吧。
+> 
+#### 运行截图
+<details open="open">
+  <summary>截图</summary>
+
+![概览](doc/pic/overview.png)
+
+![机器人管理](doc/pic/bot.png)
+
+![功能管理](doc/pic/ctrl.png)
+
+![过滤](doc/pic/ctrlFilter.png)
+
+![功能控制面板](doc/pic/ctrlTerm.png)
+
+![插件管理](doc/pic/plugin.png)
+
+![插件控制面板](doc/pic/mcTerm.png)
+
+
+</details>
 
 ## 致开发者
 

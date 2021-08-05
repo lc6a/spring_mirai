@@ -1,10 +1,10 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.lc.spring_mirai.invoke.inject
 
 import com.lc.spring_mirai.annotation.Priority
 import com.lc.spring_mirai.annotation.PriorityNum
-import com.lc.spring_mirai.controller.parameter.Param
 import com.lc.spring_mirai.controller.parameter.PathBindParam
-import com.lc.spring_mirai.request.mapping.IMappingItem
 import kotlinx.coroutines.runBlocking
 import net.mamoe.mirai.message.data.At
 import net.mamoe.mirai.message.data.FlashImage
@@ -44,7 +44,7 @@ class PathBindParamInject: ParamInject {
     protected fun<T : Any> castType(value: Any?, clazz: KClass<T>):T? {
         // 如果类型一致就直接返回
         if (value == null || clazz.isSuperclassOf(value::class)) return value as T?
-        // 尝试强制转换   //强制转换 字符串 到 Long 仍然是字符串，并且不抛异常
+        // 尝试强制转换   //强制转换 字符串 到 Long 仍然是字符串，并且不抛异常，所以不能这样搞
 //        try {
 //            return value as T?
 //        } catch (e: Exception) {}

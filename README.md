@@ -77,8 +77,24 @@
 
 **如果本项目侵犯了任何组织或个人的合法权益，请及时与作者联系，我会第一时间处理**
 
+### 许可证
 
-# [Mirai](https://github.com/mamoe/mirai)
+    Copyright (C) 2021 lc6a and contributors.
+    
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
+    
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+    
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# [Mirai](https://github.com/mamoe/mirai) 官方声明片段
 
 mirai 是一个在全平台下运行，提供 QQ Android 协议支持的高效率机器人库
 ## 声明
@@ -91,23 +107,6 @@ mirai 是一个在全平台下运行，提供 QQ Android 协议支持的高效�
 ```
 除本页的 Gitter 讨论组外，Mirai 在各个平台均没有任何所谓官方交流群或论坛, 请不要轻信任何所谓学习, 交流群, 不造谣不传谣不信谣从我做起
 ```
-
-### 许可证
-
-    Copyright (C) 2019-2020 Mamoe Technologies and contributors.
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation, either version 3 of the
-    License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 `mirai` 采用 `AGPLv3` 协议开源。为了整个社区的良性发展，我们**强烈建议**您做到以下几点：
 

@@ -152,7 +152,7 @@ public class ModuleClassLoader extends URLClassLoader {
             if(isSpringBeanClass(cla)){
                 BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(cla);
                 BeanDefinition beanDefinition = beanDefinitionBuilder.getRawBeanDefinition();
-                //设置当前bean定义对象是单利的
+                //设置当前bean定义对象是单例的
                 beanDefinition.setScope("singleton");
  
                 //将变量首字母置小写

@@ -10,6 +10,10 @@ class Token (
     constructor() : this(1) {
 
     }
+
+    override fun toString(): String {
+        return "Token(userId=$userId, userRole='$userRole', timeStamp=$timeStamp)"
+    }
 }
 
 

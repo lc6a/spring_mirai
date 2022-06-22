@@ -28,6 +28,7 @@ function host() {
     axios.interceptors.response.use(function (response) {
         // 对响应数据做点什么
         if (JSON.stringify(response.data) === JSON.stringify({ ok: false, msg: "unLogin" })) {
+            debugger;
             alert("请先登录")
             window.location = "/login.html"
         }

@@ -5,9 +5,9 @@ import com.lc.spring_mirai.config.ServerConfig
 import com.lc.spring_mirai.util.SpringApplicationContextUtil
 import com.lc.spring_mirai.util.URLOpener
 import com.lc.spring_mirai.web.controller.execSmCommand
+import com.lc.spring_mirai.web.token.TokenUtil
 import kotlinx.coroutines.runBlocking
 import net.mamoe.mirai.console.command.*
-import net.mamoe.mirai.console.command.CommandManager.INSTANCE.register
 import net.mamoe.mirai.console.command.CommandManager.INSTANCE.unregister
 import net.mamoe.mirai.console.command.descriptor.*
 import net.mamoe.mirai.console.data.PluginData
@@ -16,13 +16,13 @@ import net.mamoe.mirai.console.permission.Permission
 import net.mamoe.mirai.console.permission.PermissionService
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
+import net.mamoe.mirai.console.terminal.consoleLogger
 import net.mamoe.mirai.message.data.Message
 import net.mamoe.mirai.message.data.MessageChain
 import net.mamoe.mirai.message.data.buildMessageChain
-import net.mamoe.mirai.utils.LoggerAdapters.asMiraiLogger
 import net.mamoe.mirai.utils.MiraiLogger
 import net.mamoe.mirai.utils.debug
-import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.runApplication
 import org.springframework.stereotype.Component
 import kotlin.reflect.typeOf
@@ -36,7 +36,6 @@ object SpringMiraiStartPlugin: KotlinPlugin(
 ) {
 
     override fun PluginComponentStorage.onLoad() {
-        MiraiLogger.setDefaultLoggerCreator { identity -> LoggerFactory.getLogger(identity).asMiraiLogger() }
         runApplication<SpringMiraiApplication>()
         SpringApplicationContextUtil.context.getBeansOfType(PluginData::class.java).values.forEach {
             it.reload()
@@ -44,14 +43,17 @@ object SpringMiraiStartPlugin: KotlinPlugin(
         val config = SpringApplicationContextUtil.context.getBean(Config::class.java)
         if (config.autoOpenUrl) {
             val serverConfig = SpringApplicationContextUtil.context.getBean(ServerConfig::class.java)
-            URLOpener.openURL(serverConfig.url)
+            val url = serverConfig.url
+            logger.info("管理页面地址：${url}")
+            URLOpener.openURL(url)
         }
     }
 
     override fun onEnable() {
         logger.debug { "Start Spring Mirai" }
         SpringApplicationContextUtil.context.getBeansOfType(Command::class.java).values.forEach {
-            it.register()
+            logger.debug("注册命令：${it.primaryName}")
+            CommandManager.registerCommand(it)
         }
     }
 
@@ -63,7 +65,19 @@ object SpringMiraiStartPlugin: KotlinPlugin(
 }
 
 
+@Component
+class TokenCommand: SimpleCommand(
+    SpringMiraiStartPlugin, "sm_token",
+    description = "获取SpringMirai的Token"
+) {
+    @Autowired
+    lateinit var tokenUtil: TokenUtil
 
+    @Handler
+    suspend fun CommandSender.handle() {
+        sendMessage(tokenUtil.createDefaultToken())
+    }
+}
 
 
 @Component
@@ -79,6 +93,7 @@ class SmCommandInvoker: SimpleCommand(
     @Handler
     fun CommandSender.handle(vararg args: String) {
         val command = buildString { args.forEach { append(it).append(' ') } }.trimEnd()
+        consoleLogger.debug("执行sm命令：${command}")
         execSmCommand(command) {
             runBlocking {
                 sendMessage(it)
@@ -132,7 +147,7 @@ abstract class MyRawCommand(
             val arguments = call.rawValueArguments
             //sender.onCommand(buildMessageChain { arguments.forEach { +it.value } })
             val message = buildString { arguments.forEach { append(it.value).append(' ') } }
-            val logger = MiraiLogger.create("sm-command")
+            val logger = MiraiLogger.Factory.create(SpringMiraiStartPlugin::class, "sm-command")
             logger.info(message)
             sender.onCommand(buildMessageChain { +message })
         }

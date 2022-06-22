@@ -31,11 +31,10 @@ class CommonResponseDataAdvice : ResponseBodyAdvice<Any?> {
         request: ServerHttpRequest,
         response: ServerHttpResponse
     ): Any? {
-        return if (body is Unit || body == null)
-            Result.success
-        else if (body is String)
-            body
-        else
-            jsonUtil.toJson(body)
+        return when (body) {
+            is Unit, null -> Result.success
+            is String -> body
+            else -> jsonUtil.toJson(body)
+        }
     }
 }

@@ -7,6 +7,7 @@ import com.lc.spring_mirai.demo.service.PermissionService
 import com.lc.spring_mirai.exception.PermissionDeniedException
 import com.lc.spring_mirai.web.dto.Token
 import com.lc.spring_mirai.web.error.TokenAuthExpiredException
+import net.mamoe.mirai.console.terminal.consoleLogger
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
@@ -22,9 +23,6 @@ class TokenUtil {
 
     @Resource
     private lateinit var config: Config
-
-    @Resource
-    var tokenUtil: TokenUtil? = null
 
     @Value("\${token.privateKey}")
     private val privateKey: String? = null
@@ -47,6 +45,10 @@ class TokenUtil {
             .withClaim("userRole", userRole)
             .withClaim("timeStamp", System.currentTimeMillis())
             .sign(Algorithm.HMAC256(privateKey))
+    }
+
+    fun createDefaultToken(): String {
+        return createToken(-1L)
     }
 
     /**
@@ -87,6 +89,7 @@ class TokenUtil {
         }
         try {
             val token1 = parseToken(token)
+            consoleLogger.debug("解压后的token:${token1}")
             val userId = token1.userId
             val userRole = token1.userRole
             val timeOfUse = System.currentTimeMillis() - token1.timeStamp
@@ -95,12 +98,14 @@ class TokenUtil {
             if (timeOfUse < yangToken!!) {
 
             } else if (timeOfUse >= yangToken && timeOfUse < oldToken!!) {
-                response.setHeader("token", tokenUtil!!.createToken(userId, userRole))
+                response.setHeader("token", createToken(userId, userRole))
             } else {
+                consoleLogger.debug("token已过期:${token}")
                 throw TokenAuthExpiredException()
             }
             // 2. 是否具有访问权限
             if (!permissionService.havePermission(userId, LOGIN_PERMISSION) && userId != config.rootUserId && userId != -1L) {
+                consoleLogger.debug("token无效，没有登录权限，账号id：[${userId}]")
                 throw PermissionDeniedException("没有登录权限")
             }
         } catch (e: Exception) {

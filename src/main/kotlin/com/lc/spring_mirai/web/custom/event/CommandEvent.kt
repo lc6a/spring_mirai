@@ -1,8 +1,6 @@
 package com.lc.spring_mirai.web.custom.event
 
 import net.mamoe.mirai.Bot
-import net.mamoe.mirai.contact.Contact
-import net.mamoe.mirai.contact.Member
 import net.mamoe.mirai.contact.User
 import net.mamoe.mirai.event.AbstractEvent
 import net.mamoe.mirai.event.events.MessageEvent
@@ -15,8 +13,8 @@ import net.mamoe.mirai.message.data.messageChainOf
  */
 
 abstract class CommandEvent(override val bot: Bot,
-                        open val command: String,
-                        override val sender: User
+                            val command: String,
+                            final override val sender: User
 ) : MessageEvent, AbstractEvent() {
 
     /**

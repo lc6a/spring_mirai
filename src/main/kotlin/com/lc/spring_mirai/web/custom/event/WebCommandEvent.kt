@@ -14,6 +14,7 @@ import net.mamoe.mirai.message.data.Message
 import net.mamoe.mirai.message.data.MessageChain
 import net.mamoe.mirai.message.data.OnlineMessageSource
 import net.mamoe.mirai.utils.ExternalResource
+import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
 import net.mamoe.mirai.utils.MiraiInternalApi
 import java.util.*
 import kotlin.coroutines.CoroutineContext
@@ -140,12 +141,11 @@ class NoUser(val replyFn: (String) -> Unit, val event: WebCommandEvent? = null):
 }
 
 @OptIn(MiraiInternalApi::class)
+@Suppress("DEPRECATION_ERROR")
 class WebMessageReceipt<out C: Contact>(val event: WebCommandEvent, target: C)
     : MessageReceipt<C>(ToWeb(event),
     target
-) {
-
-}
+)
 
 @OptIn(MiraiInternalApi::class)
 class ToWeb(event: WebCommandEvent): OnlineMessageSource.Outgoing.ToFriend() {

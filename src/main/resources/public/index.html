@@ -3,11 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
+    <script src="/js/vue2.js"></script>
+    <script src="/js/axios.js"></script>
+    <link rel="stylesheet" href="/layui/dist/css/layui.css">
+    <script src="/layui/dist/layui.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/url.js"></script>
+    <link rel="stylesheet" href="/element-ui/theme-chalk/index.css">
+    <script src="/element-ui/index.js"></script>
+    <script src="/js/main.js"></script>
 </head>
 <body>
 
 <script>
-  window.location="manager.html";
+    function getQueryVariable(variable) {
+        const query = window.location.search.substring(1);
+        const vars = query.split('&');
+        for (let i = 0; i < vars.length; i++) {
+            const pair = vars[i].split('=');
+            if (pair[0] === variable) {
+                return pair[1];
+            }
+        }
+        return null;
+    }
+
+    localStorage.setItem("token", getQueryVariable("token"))
+    axios.get("/token/check")
+        .then(r => {
+            window.location="manager.html";
+        });
 </script>
 </body>
 </html>

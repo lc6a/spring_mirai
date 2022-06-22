@@ -4,34 +4,37 @@ object Version{
     /**
      * mirai版本
      */
-    const val mirai = "2.6.6"
+    const val mirai = "2.11.1"
 
     /**
      * spring_mirai开发版本
      */
-    const val dev = "2"
+    const val dev = "1"
 
-    const val kotlin = "1.4.21"
+    const val kotlin = "1.7.0"
+
+    const val spring_boot = "2.7.0"
 }
 
 plugins {
-    id("org.springframework.boot") version "2.4.2"
+    id("org.springframework.boot") version "2.7.0"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.4.30-M1"
-    kotlin("plugin.spring") version "1.4.21"
-    kotlin("plugin.serialization") version "1.4.21"
+    kotlin("jvm") version "1.7.0"
+    kotlin("plugin.spring") version "1.7.0"
+    kotlin("plugin.serialization") version "1.7.0"
 }
 
 
 group = "com.lc"
 version = "${Version.mirai}-dev${Version.dev}"
 
-java.sourceCompatibility = JavaVersion.VERSION_15
-java.targetCompatibility = JavaVersion.VERSION_15
+java.sourceCompatibility = JavaVersion.VERSION_11
+java.targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenLocal()
-    maven (url = "http://maven.aliyun.com/nexus/content/groups/public/")
+    maven (url = "https://maven.aliyun.com/nexus/content/groups/public/")
+    maven (url = "https://plugins.gradle.org/m2/")
     mavenCentral()
     jcenter()
 }
@@ -71,7 +74,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=enable")
-        jvmTarget = "15"
+        jvmTarget = "11"
     }
 }
 

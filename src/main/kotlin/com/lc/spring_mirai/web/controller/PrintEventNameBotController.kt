@@ -18,3 +18,7 @@ class PrintEventNameBotController: BaseBotController() {
         logger.info(event.toString())
     }
 }
+
+private fun MiraiLogger.Companion.create(showName: String): MiraiLogger {
+    return MiraiLogger.Factory.create(MiraiLogger::class, showName);
+}
